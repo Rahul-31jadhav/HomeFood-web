@@ -1,0 +1,277 @@
+.custom-tabs {
+      background: #F6F6F6;
+      border-radius: 50px;
+      padding: 5px;
+      display: inline-flex;
+      gap: 14px;
+    }
+
+    .custom-tab {
+      border: none;
+      background: transparent;
+      font-weight: 500;
+      color: #555;
+      padding: 8px 18px;
+      border-radius: 12px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .custom-tab.active {
+      background: #fff;
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .custom-badge {
+      background: #ff5a1f;
+      color:#F6F6F6;
+      border-radius: 12px;
+      font-size: 12px;
+      padding: 2px 8px;
+      margin-left: 6px;
+    }
+    .backgrountab{
+       border-radius: 18px;
+       background-color: #F6F6F6;
+       margin-left: 20px;
+       margin-right: 4.5rem;
+    }
+
+
+
+/* .campaign-img {
+      width: 30px;
+      height: 30px;
+      border-radius: 20px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    .fontfamily{
+      font-family: 'Segoe UI';
+    }
+
+    .campaign-title {
+      font-family: Albert Sans;
+font-weight: 400;
+font-style: Regular;
+font-size: 14px;
+line-height: 20px;
+letter-spacing: 0%;
+text-decoration-style: solid;
+text-decoration-thickness: 0%;
+text-decoration-skip-ink: auto;
+
+    }
+
+    .campaign-subtext {
+      color: #888;
+      font-family: Albert Sans;
+font-weight: 400;
+font-style: Regular;
+font-size: 12px;
+line-height: 16px;
+letter-spacing: 0%;
+
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background-color: #e6f4ea;
+      color: #34a853;
+      font-weight: 500;
+    }
+
+    .owner-img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 8px;
+    }
+
+    .owner-name {
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .owner-name:hover {
+      text-decoration: underline;
+    }
+   
+  .main-table{
+        border-radius: 15px;
+        margin-top: 1.5rem;
+        margin: 1.5rem;
+    }
+
+    .btn-create {
+      background-color: #ffa726;
+      color: white;
+      border-radius: 15px;
+       box-shadow: 0 0 5px rgba(249, 168, 37, 0.8);
+     margin-right: 2rem;
+    }
+
+.navT {
+  border-bottom: 1px solid #ddd;
+  
+}
+
+.navT .nav-link {
+  text-decoration: none !important;   
+  color: #888;                        
+  border: none;
+  font-family: Albert Sans;
+font-weight: 600;
+font-size: 12.5px;
+line-height: 20px;
+letter-spacing: 0%;
+
+}
+
+.navT .nav-link.active {
+  color: #000;                      
+  border-bottom: 1px solid #FFA500;  
+  font-weight: 600;
+}
+.campaign-heading {
+  font-family: 'Albert Sans', sans-serif;
+  font-weight: 600;              
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  padding-bottom: 18px;
+}
+
+
+.table-header-row th {
+  background-color: #FFF0F0 !important;
+    padding-bottom: 4px;
+font-weight: 600;
+font-style: Medium;
+font-size: 14px;
+line-height: 24px;
+letter-spacing: 0%;
+  font-family: 'Albert Sans', sans-serif;
+  
+} */
+.custom-scroll-table {
+  max-height: 660px;
+  overflow-y: auto;
+}
+
+.custom-scroll-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.custom-head th {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  background: #FFF0F0;
+}
+
+.Active {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.Inactive {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.bottomtable {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.three-dot-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.search-wrapper {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  background: #fff;
+}
+
+.input-search {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+.main-table {
+        border-radius: 15px 15px 0px 0px;
+        margin-top: 1.5rem;
+        margin: 1.5rem;
+        overflow: visible;
+        width: 94%;
+
+}
+.custom-table{
+  overflow: visible;
+  border-radius: 2rem;
+}
+.fontfamily{
+      font-family: 'Segoe UI';
+      font-size: 14px;
+      font-weight: 500;
+
+    }
+    .subfoont{
+      font-family: 'Segoe UI';
+      font-size: 12px;
+      color: #6D6D6D;
+      font-weight: 400;
+    }
+    .role{
+      font-family: 'Segoe UI';
+      font-size: 16px;
+      font-weight: 400;
+      color: #000000;
+    }
+   .status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 50px;
+  padding: 4px 12px;
+}
+
+.status-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* Active style */
+.status-badge.active {
+  background-color: #e6f9f0;   /* light green bg */
+  color: #16a34a;              /* green text */
+}
+.status-badge.active .dot {
+  background-color: #16a34a;   /* green dot */
+}
+
+/* Inactive style */
+.status-badge.inactive {
+  background-color: #ffecec;   /* light red bg */
+  color: #dc2626;              /* red text */
+}
+.status-badge.inactive .dot {
+  background-color: #dc2626;   /* red dot */
+}

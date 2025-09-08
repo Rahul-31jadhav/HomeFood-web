@@ -1,0 +1,113 @@
+
+
+  .stat-card {
+      border-radius: 17px;
+      box-shadow:#F1F1F1;
+      width: 95%;
+      border: 1px solid #F1F1F1;
+      font-family: 'Segoe UI';
+      margin-left: 3.5rem;
+    }
+    .text-cards{
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'Segoe UI';
+      color: #888888;
+    }
+    .text-internal{
+      color: #17B26A;
+    }
+      .stat-cards{
+        margin-left: 3.5rem;
+         border-radius: 17px;
+         box-shadow:#F1F1F1;
+          border: 1px solid #F1F1F1;
+      }
+      .img-fluid{
+        width: 19px;
+        height: 19px;
+        margin-bottom: 4rem;
+        margin-right: 0.9rem;
+      }
+    .stat-card h6 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+       font-family: 'Segoe UI';
+    }
+    .stat-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 5px 0;
+       font-family: 'Segoe UI';
+    }
+    
+    .trend-graph {
+      height: 30vh;
+      border-radius: 12px;
+    }
+    .pie-chart {
+      height: 25vh;
+      border-radius: 12px;
+    }
+    .activities {
+      background: #F6F6F6;
+     height: 100%;               
+  width: 60%;      
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      margin-left: 8rem;
+    }
+    .activities h6 {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 21px;
+      font-size: 14.2px;
+      font-family: 'Segoe UI';
+      font-weight: 600;
+      color: #000000;
+    }
+    .activity-item img {
+     width: 2rem;                 
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 0.6rem;
+    }
+    .activity-item span {
+      color: #777;
+      font-size: 12px;
+    }
+
+.btn-toggle .btn {
+  border-radius: 20px;      
+  padding: 2.5px 19px;
+  margin: 0 4px;
+  font-size: 12px;
+  border: none;
+  background-color: #f2f2f2; 
+  color: #999;              
+  font-weight: 500;
+}
+
+.btn-toggle .btn.active {
+  background-color: #ff6b6b; 
+  color: #fff;              
+}
+
+.btn-toggle .btn:hover {
+  background-color: #ffe5e5; 
+  color: #ff6b6b;
+}
+
+
+canvas {
+  height: 300px !important;
+}
+ .fontstyle{
+  font-family: 'Segoe UI';
+ }

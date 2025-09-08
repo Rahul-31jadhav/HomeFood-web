@@ -1,0 +1,35 @@
+<div class="form-container">
+  <div *ngIf="currentForm === 'login'" class="form-box">
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" />
+    <div class="password-wrapper">
+      <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" />
+      <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"></i>
+    </div>
+    <button class="btn">Login</button>
+    <div class="link-row ">
+  <span class="link-text" (click)="showSignup()">Go to Signup</span>
+  <span class="link-text" (click)="showForgot()">Forgot Password?</span>
+</div>
+  </div>
+
+  <div *ngIf="currentForm === 'signup'" class="form-box">
+    <h2>Signup</h2>
+    <input type="text" placeholder="First Name" />
+    <input type="text" placeholder="Last Name" />
+    <input type="email" placeholder="Email" />
+    <div class="password-wrapper">
+      <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" />
+      <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"></i>
+    </div>
+    <button class="btn">Register</button>
+    <button class="link-btn" (click)="showLogin()">Go to Login</button>
+  </div>
+
+  <div *ngIf="currentForm === 'forgot'" class="form-box">
+    <h2>Forgot Password</h2>
+    <input type="email" placeholder="Enter Email" />
+    <button class="btn">Send OTP</button>
+    <button class="link-btn" (click)="showLogin()">Back to Login</button>
+  </div>
+</div>
