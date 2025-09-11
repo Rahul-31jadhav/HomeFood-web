@@ -1,240 +1,399 @@
 <div class="container-fluid">
 
-<body class=" backgrountab">
+  <body class=" backgrountab">
 
 
 
-<div class="container-fluid ps-0 mt-4">
-  <div class="custom-tabs">
-    <button class="custom-tab active">
-      All Users <span class="custom-badge">109</span>
-    </button>
-    <button class="custom-tab">Host</button>
-    <button class="custom-tab">Guest</button>
-    <button class="custom-tab">Application Review</button>
-  </div>
-</div>
+    <div class="container-fluid ps-0 mt-4">
+      <div class="custom-tabs">
+        <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'All Users' }"
+          (click)="setActiveTab('All Users')">
+          All Users <span class="custom-badge">{{ users.length }}</span>
+        </button>
+        <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Host' }" (click)="setActiveTab('Host')">
+          Host
+        </button>
+        <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Guest' }" (click)="setActiveTab('Guest')">
+          Guest
+        </button>
+        <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Application Review' }"
+          (click)="setActiveTab('Application Review')">
+          Application Review
+        </button>
+      </div>
+    </div>
 
-</body>
-<!-- <div class="table-responsive border main-table ">
-        <table class="table align-middle mb-0">
-            <thead class="">
-                <tr>
-                    <th colspan="7" class="campaign-heading fontfamily">All Users</th>
-                </tr>
+  </body>
 
-                <tr class="table-header-row fontfamily">
-                    <th>Users<i class="bi bi-chevron-down ms-1"></i></th>
-                    <th class="l1">Role</th>
-                    <th class="l2">Status <i class="bi bi-chevron-down ms-1"></i></th>
-                    <th class="l3">join Date</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/40x40" class="campaign-img" alt="">
-                            <div>
-                                <div class="campaign-title fontfamily">Rahul Jadhav</div>
-                                <div class="campaign-subtext">rahuljadhav&#64;gmail.com</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>320 times</td>
-                    <td><span class="status-pill">Running</span></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="" class="owner-img" alt="">
-                            <a href="#" class="owner-name">Joshua Schamberger</a>
-                        </div>
-                    </td>
-                    <td>12 Dec 2024</td>
-                    <td class="action-icons">
-                        <div class="d-flex justify-content-between justify-content-around">
-                        
-                        <img src="/img/Dots.png" alt="More" class="action-svg" />
-                        </div>
-                    </td>
+  <div class="col-11 main-table card">
+    <!-- Table header -->
+    <div class="table-bar border-bottom d-flex justify-content-between align-items-center px-3 py-1">
+      <h5 class="mb-0">{{ activeTab }}</h5>
 
-                </tr>
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/40x40" class="campaign-img" alt="">
-                            <div>
-                                <div class="campaign-title fontfamily">Rahul Jadhav</div>
-                                <div class="campaign-subtext">rahuljadhav&#64;gmail.com</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>320 times</td>
-                    <td><span class="status-pill">Running</span></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="" class="owner-img" alt="">
-                            <a href="#" class="owner-name">Joshua Schamberger</a>
-                        </div>
-                    </td>
-                    <td>12 Dec 2024</td>
-                    <td class="action-icons">
-                        <div class="d-flex justify-content-between justify-content-around">
-
-                        <img src="/img/Dots.png" alt="More" class="action-svg" />
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="https://via.placeholder.com/40x40" class="campaign-img" alt="">
-                            <div>
-                                <div class="campaign-title fontfamily">Rahul Jadhav</div>
-                                <div class="campaign-subtext">rahuljadhav&#64;gmail.com</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>320 times</td>
-                    <td><span class="status-pill">Running</span></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="" class="owner-img" alt="">
-                            <a href="#" class="owner-name">Joshua Schamberger</a>
-                        </div>
-                    </td>
-                    <td>12 Dec 2024</td>
-                    <td class="action-icons">
-                        <div class="d-flex justify-content-between justify-content-around">
-                        <img src="/img/Dots.png" alt="More" class="action-svg" />
-                        </div>
-                    </td>
-
-                </tr>
-
-              
-
-            </tbody>
-        </table>
-    </div> -->
-    <div class="col-11 main-table card">
-  <!-- Table header -->
-  <div class="table-bar border-bottom d-flex justify-content-between align-items-center px-3 py-1">
-    <h5 class="mb-0">All Users</h5>
-
-    <div class="table-controls d-flex align-items-center gap-2">
-      <!-- Search box -->
-      <div class="position-relative w-100" style="max-width: 400px; margin: auto;">
-        <div class="search-wrapper d-flex rounded position-relative">
-          <img class="table-img me-2" src="/assets/userIcon/searchIcon.png" alt="Search" width="16" height="16" />
-          <input class="input-search" type="text" placeholder="Search by name or email id" />
+      <div class="table-controls d-flex align-items-center gap-2">
+        <!-- Search box -->
+        <div class="position-relative w-100" style="max-width: 400px; margin: auto;">
+          <div class="search-wrapper d-flex  position-relative">
+            <img class="table-img me-3 mt-1" src="/img/searchicon.png" alt="Search" width="14" height="14" />
+            <input class="input-search subfoont" type="text" placeholder="Search by name or email id" />
+          </div>
         </div>
 
-        <!-- Static search result -->
-       
-
+        <!-- Dropdown filter -->
+        <div class="dropdown">
+          <button class="btn dropdown-toggle custom-btn fontfamily" type="button" data-bs-toggle="dropdown">
+            {{ currentFilter }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end heading-dropdown fontfamily">
+            <li><a class="dropdown-item" (click)="applyFilter('All')">All</a></li>
+            <li><a class="dropdown-item" (click)="applyFilter('Active')">Active</a></li>
+            <li><a class="dropdown-item" (click)="applyFilter('Inactive')">Inactive</a></li>
+          </ul>
+        </div>
       </div>
+    </div>
+
+
+    <!-- Table -->
+    <div class="table-responsive custom-scroll-table">
+      <table class="table align-middle mb-0 border-1px custom-table">
+        <thead class="custom-head">
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Role</th>
+            <th scope="col">Status</th>
+            <th scope="col">Join Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers">
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <img [src]="user.img" class="rounded-circle" width="40" height="40" />
+                <div>
+                  <div class="fontfamily">{{ user.name }}</div>
+                  <div class="subfoont">{{ user.email }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="role"><img [src]="user.roleImg" class="me-1 role" /> {{ user.role }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="{
+        'active': user.status === 'Active',
+        'inactive': user.status === 'Inactive'
+      }">
+                <span class="dot"></span> {{ user.status }}
+              </span>
+
+            </td>
+            <td>{{ user.joinDate }}</td>
+            <td>
+              <div class="dropdown dropstart">
+                <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown">⋮</button>
+                <ul class="dropdown-menu shadow rounded-4 border-0 p-1 custom-dropdown">
+                  <li>
+                    <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
+                      (click)="openOffcanvas(user, 'view')">
+                      View details
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
+                      (click)="openOffcanvas(user, 'edit')">
+                      Edit
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-danger fontfamily" href="#">Deactivate</a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Empty row when no data -->
+          <tr *ngIf="filteredUsers.length === 0">
+            <td colspan="5" class="text-center py-3">No data available</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Table -->
-  <div class="table-responsive custom-scroll-table">
-    <table class="table align-middle mb-0 border-1px custom-table">
-      <thead class="custom-head">
-        <tr>
-          <th scope="col">User</th>
-          <th scope="col">Role</th>
-          <th scope="col">Status</th>
-          <th scope="col">Join Date</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <img src="assets/userIcon/user1.png" class="rounded-circle" width="40" height="40" />
-              <div>
-                <div class="fontfamily">Jaime Grimes</div>
-                <div class="subfoont">jaime.grimesemail.com</div>
+
+  <!-- Offcanvas -->
+  <div class="offcanvas offcanvas-end host-offcanvas" tabindex="-1" id="hostDetails" aria-labelledby="hostDetailsLabel"(hidden.bs.offcanvas)="isMealDetailsView = false">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title d-flex align-items-center" id="hostDetailsLabel">
+        <ng-container *ngIf="isMealDetailsView">
+          <img src="/meal/backbtn.png" alt="Back" class="back-btn me-2" (click)="closeMealDetails()" />
+        </ng-container>
+
+        {{ isMealDetailsView ? 'Meal Details' : mode === 'view' ? (selectedUser?.role + ' Details') : 'Edit user
+        details' }}
+      </h5>
+
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+        (click)="allClosed()"></button>
+    </div>
+
+    <div class="offcanvas-body" [ngClass]="{ 'edit-mode': mode === 'edit' }">
+
+      <!-- Tabs -->
+      <div class="container-fluid ps-0 mt-2 border-bottom-dotted" *ngIf="!isMealDetailsView">
+        <div class="custom-tabs2">
+          <!-- View Mode Tabs -->
+          <ng-container *ngIf="mode === 'view'">
+            <button class="custom-tab2 active">Overview</button>
+            <button class="custom-tab2">Host</button>
+          </ng-container>
+
+          <!-- Edit Mode Tabs -->
+          <ng-container *ngIf="mode === 'edit'">
+            <button class="custom-tab2" [class.active]="offcanvasTab === 'overview'"
+              (click)="setOffcanvasTab('overview')">
+              Overview
+            </button>
+            <button class="custom-tab2" [class.active]="offcanvasTab === 'listedMeals'"
+              (click)="setOffcanvasTab('listedMeals')">
+              Listed Meals
+            </button>
+            <button class="custom-tab2" [class.active]="offcanvasTab === 'bookingHistory'"
+              (click)="setOffcanvasTab('bookingHistory')">
+              Booking History
+            </button>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- User Header -->
+      <!-- ✅ Show header only in overview -->
+      <div *ngIf="offcanvasTab === 'overview'" class="user-header d-flex align-items-center mt-4 mb-4">
+        <img [src]="selectedUser?.img" class="rounded-circle me-3" alt="User">
+        <div>
+          <h6 class="mb-0 fw-semibold">{{ selectedUser?.name }}</h6>
+          <small class="text-muted">{{ selectedUser?.email }}</small>
+        </div>
+        <span class="status-badge active ms-auto">
+          <span class="dot"></span>{{ selectedUser?.status }}
+        </span>
+      </div>
+
+
+      <!-- User Details -->
+      <div *ngIf="mode === 'view' || offcanvasTab === 'overview'">
+        <!-- User Details -->
+        <div class="details-list">
+          <!-- User Type -->
+          <div class="detail-row user-type">
+            <span class="label">User type</span>
+            <span class="value">
+              <span class="host-badge active off-active" [ngClass]="{ 'edit-mode': mode === 'edit' }">
+                <img src="/img/food.png" alt="" style="margin-right:0.5rem; width:18px;">
+                Host
+              </span>
+            </span>
+          </div>
+
+          <!-- First Name -->
+          <div class="detail-row">
+            <span class="label">First name</span>
+            <span class="value">
+              <!-- View mode -->
+              <span *ngIf="mode === 'view'">{{ selectedUser?.firstName }}</span>
+
+              <!-- Edit mode -->
+              <div *ngIf="mode === 'edit'">
+                <!-- If not editing yet: just show the pen -->
+                <div *ngIf="!isFirstNameEditing" class="d-flex align-items-center">
+                  <span>{{ selectedUser?.firstName }}</span>
+                  <img src="/img/redpen.png" alt="edit" style="width:24px;height:22px;cursor:pointer;margin-left:10px;"
+                    (click)="toggleFirstNameEdit()" />
+                </div>
+
+                <!-- If editing: show input -->
+                <div *ngIf="isFirstNameEditing" class="input-with-icon d-flex align-items-center">
+                  <input type="text" [(ngModel)]="selectedUser!.firstName"
+                    class="form-control form-control-sm red-border me-2" placeholder="Enter first name" />
+                </div>
+              </div>
+            </span>
+          </div>
+
+
+          <!-- Last Name -->
+          <div class="detail-row">
+            <span class="label">Last name</span>
+            <span class="value">
+              <!-- View mode -->
+              <span *ngIf="mode === 'view'">{{ selectedUser?.lastName }}</span>
+
+              <!-- Edit mode -->
+              <div *ngIf="mode === 'edit'">
+                <!-- If not editing yet -->
+                <div *ngIf="!isLastNameEditing" class="d-flex align-items-center">
+                  <span>{{ selectedUser?.lastName }}</span>
+                  <img src="/img/redpen.png" alt="edit"
+                    style="width:24px;height:22px;cursor:pointer;margin-left:10px; padding-bottom: .3;"
+                    (click)="toggleLastNameEdit()" />
+                </div>
+
+                <!-- If editing -->
+                <div *ngIf="isLastNameEditing" class="d-flex align-items-center">
+                  <input type="text" [(ngModel)]="selectedUser!.lastName"
+                    class="form-control form-control-sm me-2 red-border" placeholder="Enter last name" />
+                </div>
+              </div>
+            </span>
+          </div>
+
+
+          <!-- Display Name -->
+          <div class="detail-row">
+            <span class="label">Display name</span>
+            <span class="value">
+              <!-- Always read-only, no input in edit mode -->
+              <span>{{ selectedUser?.displayName }}</span>
+            </span>
+          </div>
+
+
+          <!-- Gender -->
+          <div class="detail-row">
+            <span class="label">Gender</span>
+            <span class="value">
+              <!-- Always show as text, both in view & edit -->
+              <span>{{ selectedUser?.gender }}</span>
+            </span>
+          </div>
+
+
+          <!-- Email -->
+          <div class="detail-row">
+            <span class="label">Email</span>
+            <span class="value">{{ selectedUser?.email }}</span>
+          </div>
+
+          <!-- Contact -->
+          <div class="detail-row">
+            <span class="label">Contact</span>
+            <span class="value">{{ selectedUser?.contact }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Country</span>
+            <span class="value">{{ selectedUser?.country }}</span>
+          </div>
+
+
+          <!-- Known Languages -->
+          <div class="detail-row">
+            <span class="label">Known languages</span>
+            <span class="value">
+              <span *ngFor="let lang of selectedUser?.knownLanguages" class="badge bg-dark me-1">{{ lang }}</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div *ngIf="mode === 'edit' && (isFirstNameEditing || isLastNameEditing)"
+          class="mt-4 d-flex justify-content-between ">
+          <button class="btn btn-outline-danger cst-btn" (click)="discardChanges()">Discard changes</button>
+          <button class="btn btn-danger cst-btn" (click)="saveUserDetails()">Save changes</button>
+        </div>
+
+
+
+      </div>
+
+      <!-- Listed Meals Tab -->
+      <div *ngIf="offcanvasTab === 'listedMeals' && !isMealDetailsView" class="mt-3">
+
+        <!-- Meal 1 -->
+        <div class="meal-item d-flex align-items-center mb-3 p-2 border meal-list">
+          <!-- Meal Image -->
+          <img src="/meal/meal1.png" alt="Meal"
+            style="width:83px; height:83px; object-fit:cover; border-radius:8px; margin-right:10px;">
+
+          <!-- Dish Info (Left side: Title + Subtext) -->
+          <div class="flex-grow-1">
+            <h6 class="mb-2 fw-semibold">Paneer Butter Masal</h6>
+            <small class="text-muted">Dine-in • Tomorrow, Dinner</small>
+            <div class="mt-1">
+              <span class="status-badge active meal-size">Active</span>
+            </div>
+          </div>
+
+          <!-- Right side: Button + Price -->
+          <div class="d-flex flex-column align-items-end ms-3">
+            <button class="btn custom-meal-btn" (click)="openMealDetails()">
+              <img src="/meal/mealicon.png" alt=""> View Details
+            </button>
+            <div class="mb-0 meal-price1"><span class="meal-price1">₹250</span>
+              <p class="meal-price">Per guest</p>
+            </div>
+
+          </div>
+        </div>
+
+
+
+      </div>
+      <!-- Meal Details Page -->
+      <div *ngIf="isMealDetailsView" class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card meal-card" style="">
+              <div class="card-header bg-dark text-white mealhead" style="">
+                <h6 class="mb-0">John Doe</h6>
+              </div>
+              <div class="card-body" style="">
+                <img src="/meal/meal2.png" class="img-fluid mealfull" alt="Sample Image">
               </div>
             </div>
-          </td>
-          <td class="role"><img src="/assets/userIcon/tourist.png" class="me-1 role" /> Host</td>
-        <td><span class="status-badge active"><span class="dot"></span> Active</span></td>
-          <td>Mar 01, 2025</td>
-          <td>
-            <div class="dropdown">
-              <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown">⋮</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">View Profile</a></li>
-                <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item text-danger" href="#">Deactivate</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
+          </div>
+        </div>
+        <div class="meal-info container mt-3">
+          <div class="meal-info-row">
+            <span class="meal-label mealfont">Meal Name</span>
+            <span class="meal-value">Paneer Butter Masala with Naan and Jeera Rice</span>
+          </div>
 
-        <tr>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <img src="assets/userIcon/user2.png" class="rounded-circle" width="40" height="40" />
-              <div>
-                <div class="fontfamily">Velma Zboncak</div>
-                <div class="subfoont">velma.zboncakemail.com</div>
-              </div>
-            </div>
-          </td>
-          <td class="role"><img src="/assets/userIcon/Guide.png" class="me-1 role"/> Host</td>
-          <td><span class="status-badge inactive"><span class="dot"></span> Inactive</span></td>
-          <td>Mar 01, 2025</td>
-          <td>
-            <div class="dropdown">
-              <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown">⋮</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">View Profile</a></li>
-                <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item text-danger" href="#">Deactivate</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
+          <div class="meal-info-row">
+            <span class="meal-label mealfont">Meal Type</span>
+            <span class="meal-value">Dine-in, Take-Away, Delivery</span>
+          </div>
 
-        <tr>
-          <td>
-            <div class="d-flex align-items-center gap-2">
-              <img src="assets/userIcon/user3.png" class="rounded-circle" width="40" height="40" />
-              <div>
-                <div class="fontfamily">Harvey Barton</div>
-                <div class="subfoont">harvey.bartonemail.com</div>
-              </div>
-            </div>
-          </td>
-          <td class="role"><img src="/assets/userIcon/tourist.png" class="me-1 "/> Guest</td>
-         <td><span class="status-badge active"><span class="dot"></span> Active</span></td>
-          <td>Mar 02, 2025</td>
-          <td>
-            <div class="dropdown">
-              <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown">⋮</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">View Profile</a></li>
-                <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item text-danger" href="#">Deactivate</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-        
-        
-      </tbody>
-    </table>
+          <div class="meal-info-row">
+            <span class="meal-label mealfont">Scheduled Time</span>
+            <span class="meal-value">Tomorrow, Dinner</span>
+          </div>
 
-    <!-- Pagination -->
- 
+          <div class="meal-info-row">
+            <span class="meal-label mealfont">Price Per Guest</span>
+            <span class="meal-value">₹ 280</span>
+          </div>
+
+          <div class="meal-info-row border-bottom pb-2 mb-2">
+            <span class="meal-label mealfont">Meal Description</span>
+            <span class="meal-value ">
+              Rich paneer butter masala served with freshly made naan and fragrant jeera rice.
+              Perfect for lunch with family or friends.
+            </span>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+
   </div>
-</div>
-
-
-</div>
