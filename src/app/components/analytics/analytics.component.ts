@@ -32,6 +32,7 @@ interface User {
   // Added meals + bookings for demo
   listedMeals?: Meal[];
   bookingHistory?: string[];
+   documents?: { name: string; type: string }[];
 }
 
 @Component({
@@ -51,6 +52,9 @@ export class AnalyticsComponent implements AfterViewInit {
 
   // For offcanvas tabs
   offcanvasTab: string = 'overview';   // 👈 new property
+    appReviewSubTab: 'overview' | 'documents' | 'rejection' = 'overview';
+ 
+    
 
   selectedUser: User | null = null;
   mode: 'view' | 'edit' = 'view';
@@ -59,8 +63,11 @@ export class AnalyticsComponent implements AfterViewInit {
   // edit states
   isFirstNameEditing = false;
   isLastNameEditing = false;
+    currentDoc = 1;
 
   // ✅ Static data with meals
+
+  
   users: User[] = [
     {
       name: 'Jaime Grimes',
@@ -182,6 +189,13 @@ export class AnalyticsComponent implements AfterViewInit {
   ngOninit() {
     this.allClosed();
   }
+  
+setAppReviewSubTab(tab: 'overview' | 'documents' | 'rejection') {
+  this.appReviewSubTab = tab;
+}
+    get hostApplications(): User[] {
+    return this.users.filter(u => u.role === 'Host');
+  }
   openMealDetails() {
   this.isMealDetailsView = true;
 }
@@ -224,16 +238,22 @@ closeMealDetails() {
   }
 
   // ✅ open offcanvas with mode
-  openOffcanvas(user: any, action: 'view' | 'edit') {
+ openOffcanvas(user: any, action: 'view' | 'edit') {
     this.selectedUser = { ...user };
-    this.mode = action;
+
+    // ✅ If current tab is Application Review, force Application Review flow
+    if (this.activeTab === 'Application Review') {
+      this.offcanvasTab = 'applicationReview';
+      this.appReviewSubTab = 'overview'; // default inside application review
+      this.mode = 'view';
+    } else {
+      this.mode = action;
+      this.offcanvasTab = 'overview'; // normal flow
+    }
 
     this.originalUser = { ...user };
     this.isFirstNameEditing = false;
     this.isLastNameEditing = false;
-
-    // Reset offcanvas tab to overview each time you open
-    this.offcanvasTab = 'overview';
   }
 
   saveUserDetails() {
@@ -263,4 +283,40 @@ closeMealDetails() {
   allClosed(){
     this.isMealDetailsView = false;
   }
+
+ viewDocument(doc: any) {
+    alert(`Viewing ${doc.name} (${doc.type})`);
+  }
+  
+  getOffcanvasTitle(): string {
+  if (this.offcanvasTab === 'overview') return 'User Overview';
+  if (this.offcanvasTab === 'applicationReview') {
+    return this.appReviewSubTab === 'overview'
+      ? 'Application Overview'
+      : 'Documents Verification';
+  }
+  return 'Details';
+}
+
+getOffcanvasBodyClass(): string {
+  if (this.offcanvasTab === 'overview') return 'overview-body';
+  if (this.offcanvasTab === 'applicationReview') {
+    return this.appReviewSubTab === 'documents'
+      ? 'documents-body'
+      : 'app-review-overview-body';
+  }
+  return '';
+}
+ nextDoc() {
+    if (this.currentDoc < 2) {
+      this.currentDoc++;
+    }
+  }
+
+  prevDoc() {
+    if (this.currentDoc > 1) {
+      this.currentDoc--;
+    }
+  }
+
 }

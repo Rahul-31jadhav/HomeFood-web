@@ -1,0 +1,106 @@
+<div class="col-11 main-table card">
+  <!-- Table header -->
+  <div class="table-bar border-bottom d-flex justify-content-between align-items-center px-3 py-1">
+    <h5 class="mb-0">{{ activeTab }}</h5>
+
+    <div class="table-controls d-flex align-items-center gap-2">
+      <!-- Search box -->
+      <div class="position-relative w-100" style="max-width: 400px; margin: auto;">
+        <div class="search-wrapper d-flex position-relative">
+          <img class="table-img me-3 mt-1" src="/img/searchicon.png" alt="Search" width="14" height="14" />
+          <input class="input-search subfoont" type="text" placeholder="Search by name or email id" [(ngModel)]="searchTerm" />
+        </div>
+      </div>
+
+      <!-- Dropdown filter -->
+      <div class="dropdown">
+        <button class="btn dropdown-toggle custom-btn fontfamily" type="button" data-bs-toggle="dropdown">
+          {{ currentFilter }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end heading-dropdown fontfamily">
+          <li><a class="dropdown-item" (click)="applyFilter('All')">All</a></li>
+          <li><a class="dropdown-item" (click)="applyFilter('Active')">Active</a></li>
+          <li><a class="dropdown-item" (click)="applyFilter('Inactive')">Inactive</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive custom-scroll-table">
+    <table class="table align-middle mb-0 border-1px custom-table">
+      <thead class="custom-head">
+        <tr>
+          <th *ngFor="let col of columns" scope="col">{{ col.label }}</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredData">
+          <td *ngFor="let col of columns">
+            <!-- Special handling for 'user' column -->
+            <ng-container *ngIf="col.key === 'user'">
+              <div class="d-flex align-items-center gap-2">
+                <img [src]="row['img'] || '/img/ProfileimgIcon.png'" class="rounded-circle" width="40" height="40" />
+                <div>
+                  <div class="fontfamily">{{ row['name'] }}</div>
+                  <div class="subfoont">{{ row['email'] }}</div>
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- Special handling for 'role' -->
+            <ng-container *ngIf="col.key === 'role'">
+              <img [src]="row['roleImg']" class="me-1 role" /> {{ row['role'] }}
+            </ng-container>
+
+            <!-- Special handling for 'status' -->
+            <ng-container *ngIf="col.key === 'status'">
+              <span class="status-badge"
+                    [ngClass]="{ 'active': row['status'] === 'Active', 'inactive': row['status'] === 'Inactive' }">
+                <span class="dot"></span> {{ row['status'] }}
+              </span>
+            </ng-container>
+
+            <!-- Default -->
+            <ng-container *ngIf="col.key !== 'user' && col.key !== 'role' && col.key !== 'status'">
+              {{ row[col.key] }}
+            </ng-container>
+          </td>
+
+          <!-- Actions -->
+          <td>
+            <div class="dropdown dropstart">
+              <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown">⋮</button>
+              <ul class="dropdown-menu shadow rounded-4 border-0 p-1 custom-dropdown">
+                <li>
+                  <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
+                     (click)="action.emit({ type: 'view', row })">
+                    View details
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
+                     (click)="action.emit({ type: 'edit', row })">
+                    Edit
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item text-danger fontfamily"
+                     (click)="action.emit({ type: 'deactivate', row })">
+                    Deactivate
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Empty row -->
+        <tr *ngIf="filteredData.length === 0">
+          <td [attr.colspan]="columns.length + 1" class="text-center py-3">No data available</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

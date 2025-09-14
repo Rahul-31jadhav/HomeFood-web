@@ -55,134 +55,211 @@
 
 
     <!-- Table -->
-    <div class="table-responsive custom-scroll-table">
+    <div class="table-responsive custom-scroll-table"
+      [ngClass]="{'application-review-table': activeTab === 'Application Review'}">
       <table class="table align-middle mb-0 border-1px custom-table">
+
+        <!-- Table Head -->
         <thead class="custom-head">
           <tr>
-            <th scope="col">User</th>
-            <th scope="col">Role</th>
-            <th scope="col">Status</th>
-            <th scope="col">Join Date</th>
-            <th scope="col">Action</th>
+            <!-- Default columns -->
+            <ng-container *ngIf="activeTab !== 'Application Review'">
+              <th scope="col">User</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+              <th scope="col">Join Date</th>
+              <th scope="col">Action</th>
+            </ng-container>
+
+            <!-- Application Review columns -->
+            <ng-container *ngIf="activeTab === 'Application Review'">
+              <th scope="col" class="text-start">User</th>
+              <th scope="col" class="text-end">Application Date</th>
+              <th scope="col" class="text-end">Action</th>
+            </ng-container>
+
           </tr>
         </thead>
+
+        <!-- Table Body -->
         <tbody>
-          <tr *ngFor="let user of filteredUsers">
-            <td>
-              <div class="d-flex align-items-center gap-2">
-                <img [src]="user.img" class="rounded-circle" width="40" height="40" />
-                <div>
-                  <div class="fontfamily">{{ user.name }}</div>
-                  <div class="subfoont">{{ user.email }}</div>
+
+          <!-- Default User Rows -->
+          <ng-container *ngIf="activeTab !== 'Application Review'">
+            <tr *ngFor="let user of filteredUsers">
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img [src]="user.img || '/img/ProfileimgIcon.png'" class="rounded-circle" width="40" height="40" />
+                  <div>
+                    <div class="fontfamily">{{ user.name }}</div>
+                    <div class="subfoont">{{ user.email }}</div>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td class="role"><img [src]="user.roleImg" class="me-1 role" /> {{ user.role }}</td>
-            <td>
-              <span class="status-badge" [ngClass]="{
-        'active': user.status === 'Active',
-        'inactive': user.status === 'Inactive'
-      }">
-                <span class="dot"></span> {{ user.status }}
-              </span>
+              </td>
+              <td class="role"><img [src]="user.roleImg" class="me-1 role" /> {{ user.role }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="{
+              'active': user.status === 'Active',
+              'inactive': user.status === 'Inactive'
+            }">
+                  <span class="dot"></span> {{ user.status }}
+                </span>
+              </td>
+              <td>{{ user.joinDate }}</td>
+              <td>
+                <div class="dropdown dropstart">
+                  <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown"><img
+                      src="/img/Dots.png" alt=""></button>
+                  <ul class="dropdown-menu shadow rounded-4 border-0 p-1 custom-dropdown">
+                    <li>
+                      <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
+                        (click)="openOffcanvas(user, 'view')">View details</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
+                        (click)="openOffcanvas(user, 'edit')">Edit</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-danger fontfamily" href="#">Deactivate</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
 
-            </td>
-            <td>{{ user.joinDate }}</td>
-            <td>
-              <div class="dropdown dropstart">
-                <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown">⋮</button>
-                <ul class="dropdown-menu shadow rounded-4 border-0 p-1 custom-dropdown">
-                  <li>
-                    <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
-                      (click)="openOffcanvas(user, 'view')">
-                      View details
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item fontfamily" data-bs-toggle="offcanvas" href="#hostDetails"
-                      (click)="openOffcanvas(user, 'edit')">
-                      Edit
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-danger fontfamily" href="#">Deactivate</a>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
+            <!-- Empty row for default users -->
+            <tr *ngIf="filteredUsers.length === 0">
+              <td colspan="5" class="text-center py-3">No data available</td>
+            </tr>
+          </ng-container>
 
-          <!-- Empty row when no data -->
-          <tr *ngIf="filteredUsers.length === 0">
-            <td colspan="5" class="text-center py-3">No data available</td>
-          </tr>
+
+
+          <ng-container *ngIf="activeTab === 'Application Review'">
+            <tr *ngFor="let user of hostApplications">
+              <!-- User column -->
+              <td class="user-col">
+                <div class="d-flex align-items-center gap-2">
+                  <img [src]="user.img" class="rounded-circle" width="40" height="40" />
+                  <div class="user-info">
+                    <div class="user-name fontfamily">{{ user.name }}</div>
+                    <div class="user-email subfoont">{{ user.email }}</div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Application Date -->
+              <td class="text-end application-date">{{ user.joinDate }}</td>
+
+              <!-- Action -->
+              <td class="text-end action-col">
+                <div class="d-flex justify-content-end gap-2">
+                  <!-- Eye icon opens offcanvas in VIEW mode -->
+                  <img src="/img/eyeicon.png" alt="View" width="24" height="24" style="cursor:pointer;"
+                    (click)="openOffcanvas(user, 'view')" data-bs-toggle="offcanvas" data-bs-target="#hostDetails" />
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty row if no hosts -->
+            <tr *ngIf="hostApplications.length === 0">
+              <td colspan="3" class="text-center py-3">No data available</td>
+            </tr>
+          </ng-container>
+
+
         </tbody>
       </table>
     </div>
+
   </div>
 
 
+
   <!-- Offcanvas -->
-  <div class="offcanvas offcanvas-end host-offcanvas" tabindex="-1" id="hostDetails" aria-labelledby="hostDetailsLabel"(hidden.bs.offcanvas)="isMealDetailsView = false">
+  <div class="offcanvas offcanvas-end host-offcanvas" tabindex="-1" id="hostDetails" aria-labelledby="hostDetailsLabel"
+    (hidden.bs.offcanvas)="isMealDetailsView = false">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title d-flex align-items-center" id="hostDetailsLabel">
         <ng-container *ngIf="isMealDetailsView">
           <img src="/meal/backbtn.png" alt="Back" class="back-btn me-2" (click)="closeMealDetails()" />
         </ng-container>
 
-        {{ isMealDetailsView ? 'Meal Details' : mode === 'view' ? (selectedUser?.role + ' Details') : 'Edit user
-        details' }}
+        {{ getOffcanvasTitle() }}
       </h5>
 
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
         (click)="allClosed()"></button>
     </div>
 
-    <div class="offcanvas-body" [ngClass]="{ 'edit-mode': mode === 'edit' }">
+    <div class="offcanvas-body" [ngClass]="getOffcanvasBodyClass()">
 
       <!-- Tabs -->
       <div class="container-fluid ps-0 mt-2 border-bottom-dotted" *ngIf="!isMealDetailsView">
         <div class="custom-tabs2">
+
           <!-- View Mode Tabs -->
-          <ng-container *ngIf="mode === 'view'">
+          <ng-container *ngIf="mode === 'view' && offcanvasTab !== 'applicationReview'">
             <button class="custom-tab2 active">Overview</button>
-            <button class="custom-tab2">Host</button>
+            <button class="custom-tab2">Booking History</button>
           </ng-container>
 
           <!-- Edit Mode Tabs -->
-          <ng-container *ngIf="mode === 'edit'">
-            <button class="custom-tab2" [class.active]="offcanvasTab === 'overview'"
-              (click)="setOffcanvasTab('overview')">
+          <ng-container *ngIf="mode === 'edit' || offcanvasTab === 'applicationReview'">
+
+            <!-- Overview tab: always visible -->
+            <button class="custom-tab2" [class.active]="
+          (offcanvasTab === 'overview') || 
+          (offcanvasTab === 'applicationReview' && appReviewSubTab === 'overview')
+        " (click)="
+          offcanvasTab === 'applicationReview' ? setAppReviewSubTab('overview') : setOffcanvasTab('overview')
+        ">
               Overview
             </button>
-            <button class="custom-tab2" [class.active]="offcanvasTab === 'listedMeals'"
-              (click)="setOffcanvasTab('listedMeals')">
+
+
+            <!-- Upload Documents tab: only for Application Review -->
+            <button *ngIf="offcanvasTab === 'applicationReview'" class="custom-tab2"
+              [class.active]="appReviewSubTab === 'documents'" (click)="setAppReviewSubTab('documents')">
+              Upload Documents
+            </button>
+
+            <!-- Listed Meals and Booking History: hide for Application Review -->
+            <button *ngIf="offcanvasTab !== 'applicationReview'" class="custom-tab2"
+              [class.active]="offcanvasTab === 'listedMeals'" (click)="setOffcanvasTab('listedMeals')">
               Listed Meals
             </button>
-            <button class="custom-tab2" [class.active]="offcanvasTab === 'bookingHistory'"
-              (click)="setOffcanvasTab('bookingHistory')">
+
+            <button *ngIf="offcanvasTab !== 'applicationReview'" class="custom-tab2"
+              [class.active]="offcanvasTab === 'bookingHistory'" (click)="setOffcanvasTab('bookingHistory')">
               Booking History
             </button>
+
           </ng-container>
+
         </div>
       </div>
 
+
       <!-- User Header -->
       <!-- ✅ Show header only in overview -->
-      <div *ngIf="offcanvasTab === 'overview'" class="user-header d-flex align-items-center mt-4 mb-4">
-        <img [src]="selectedUser?.img" class="rounded-circle me-3" alt="User">
+      <div *ngIf="offcanvasTab === 'overview'"
+        class="user-header d-flex align-items-center mt-2 mb-2 border-bottom-dotted ">
+        <img src="/img/ProfileimgIcon.png" class="rounded-circle me-3" alt="User">
         <div>
           <h6 class="mb-0 fw-semibold">{{ selectedUser?.name }}</h6>
           <small class="text-muted">{{ selectedUser?.email }}</small>
         </div>
-        <span class="status-badge active ms-auto">
+        <span class="status-badge active ms-auto offstatus">
           <span class="dot"></span>{{ selectedUser?.status }}
         </span>
       </div>
 
 
       <!-- User Details -->
-      <div *ngIf="mode === 'view' || offcanvasTab === 'overview'">
+      <!-- User Details (only when NOT in Application Review) -->
+      <div *ngIf="(mode === 'view' || offcanvasTab === 'overview') && offcanvasTab !== 'applicationReview'">
+
         <!-- User Details -->
         <div class="details-list">
           <!-- User Type -->
@@ -287,7 +364,6 @@
           </div>
 
 
-          <!-- Known Languages -->
           <div class="detail-row">
             <span class="label">Known languages</span>
             <span class="value">
@@ -296,21 +372,19 @@
           </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div *ngIf="mode === 'edit' && (isFirstNameEditing || isLastNameEditing)"
-          class="mt-4 d-flex justify-content-between ">
-          <button class="btn btn-outline-danger cst-btn" (click)="discardChanges()">Discard changes</button>
-          <button class="btn btn-danger cst-btn" (click)="saveUserDetails()">Save changes</button>
-        </div>
+       <div *ngIf="mode === 'edit' && (isFirstNameEditing || isLastNameEditing)" 
+     class="review-actions mt-3">
+  <button class="reject-btn" (click)="discardChanges()">Discard changes</button>
+  <button class="save-approve-btn" (click)="saveUserDetails()">Save changes</button>
+</div>
+
 
 
 
       </div>
 
-      <!-- Listed Meals Tab -->
       <div *ngIf="offcanvasTab === 'listedMeals' && !isMealDetailsView" class="mt-3">
 
-        <!-- Meal 1 -->
         <div class="meal-item d-flex align-items-center mb-3 p-2 border meal-list">
           <!-- Meal Image -->
           <img src="/meal/meal1.png" alt="Meal"
@@ -340,6 +414,8 @@
 
 
       </div>
+
+
       <!-- Meal Details Page -->
       <div *ngIf="isMealDetailsView" class="container">
         <div class="row justify-content-center">
@@ -387,6 +463,111 @@
 
 
       </div>
+
+      <!-- ✅ Application Review  -->
+
+    <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'overview'"
+     class="app-review-overview-body">
+
+  <div class="user-image">
+    <img class="mt-3" src="/img/userimg.png" alt="User Image" style="width: 128px; height: 128px;" >
+  </div>
+
+  <div class="user-details">
+    <div class="detail-row">
+      <span class="label">First name</span>
+      <span class="value">{{ selectedUser?.firstName }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Last name</span>
+      <span class="value">{{ selectedUser?.lastName }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Gender</span>
+      <span class="value">{{ selectedUser?.gender }}</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Lorem</span>
+      <span class="value">Lorem Ipsum</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Lorem</span>
+      <span class="value">Lorem Ipsum</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">Lorem</span>
+      <span class="value">Lorem Ipsum</span>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="review-actions">
+    <button class="reject-btn">Reject application</button>
+    <button class="approve-btn">Approve application</button>
+  </div>
+</div>
+
+
+
+      <!-- ======================= -->
+      <!-- ✅ Application Review → Documents -->
+      <!-- ======================= -->
+      <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'documents'" class="documents-body">
+      <div class="documents-body">
+    <!-- Aadhar Card -->
+    <div class="doc-card" *ngIf="currentDoc === 1">
+      <div class="doc-header"></div>
+      <div class="doc-preview">
+        <img src="/img/Adhar.png" alt="Aadhar Front" />
+        <img src="/img/BackAdhar.png" alt="Aadhar Back" />
+      </div>
+      <div class="doc-footer">
+        <span class="doc-index">Govt. ID&nbsp;&nbsp;1/2</span>
+        <div class="nav-buttons">
+  <div class="icon-btn" 
+       (click)="prevDoc()" 
+       [class.disabled]="currentDoc === 1">
+    <img src="/sidebar/Preicon.png" alt="Previous">
+  </div>
+  <div class="icon-btn" (click)="nextDoc()">
+    <img src="/sidebar/Next Icon.png" alt="Next">
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <!-- PAN Card -->
+    <div class="doc-card" *ngIf="currentDoc === 2">
+      <div class="doc-header"></div>
+      <div class="doc-preview">
+        <img src="/img/Adhar.png" alt="PAN Front" />
+        <img src="/img/BackAdhar.png" alt="PAN Back" />
+      </div>
+      <div class="doc-footer">
+        <span class="doc-index">Govt. ID&nbsp;&nbsp;2/2</span>
+        <div class="">
+       <div class="nav-buttons">
+  <div class="icon-btn" (click)="prevDoc()">
+    <img src="/sidebar/Preicon.png" alt="Previous">
+  </div>
+  <div class="icon-btn" 
+       (click)="nextDoc()" 
+       [class.disabled]="currentDoc === 2">
+    <img src="/sidebar/Next Icon.png" alt="Next">
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Reuse Approve/Reject buttons -->
+  <div class="review-actions mt-3">
+    <button class="reject-btn">Reject application</button>
+    <button class="approve-btn">Approve application</button>
+  </div>
 
 
 
