@@ -6,27 +6,38 @@
 
     <div class="container-fluid ps-0 mt-4">
       <div class="custom-tabs">
+        <!-- All Users -->
         <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'All Users' }"
           (click)="setActiveTab('All Users')">
-          All Users <span class="custom-badge">{{ users.length }}</span>
+          All Users
+          <span class="custom-badge" *ngIf="activeTab === 'All Users'">{{ users.length }}</span>
         </button>
+
+        <!-- Host -->
         <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Host' }" (click)="setActiveTab('Host')">
           Host
+          <span class="custom-badge" *ngIf="activeTab === 'Host'">{{ hostCount }}</span>
         </button>
+
+        <!-- Guest -->
         <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Guest' }" (click)="setActiveTab('Guest')">
           Guest
+          <span class="custom-badge" *ngIf="activeTab === 'Guest'">{{ guestCount }}</span>
         </button>
+
+        <!-- Application Review -->
         <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Application Review' }"
           (click)="setActiveTab('Application Review')">
           Application Review
+          <span class="custom-badge" *ngIf="activeTab === 'Application Review'">{{ hostApplications.length }}</span>
         </button>
       </div>
+
     </div>
 
   </body>
 
   <div class="col-11 main-table card">
-    <!-- Table header -->
     <div class="table-bar border-bottom d-flex justify-content-between align-items-center px-3 py-1">
       <h5 class="mb-0">{{ activeTab }}</h5>
 
@@ -96,7 +107,15 @@
                   </div>
                 </div>
               </td>
-              <td class="role"><img [src]="user.roleImg" class="me-1 role" /> {{ user.role }}</td>
+              <td class="role">
+                <ng-container [ngSwitch]="user.role">
+                  <img *ngSwitchCase="'Host'" src="/img/food.png" class="me-1 role" />
+                  <img *ngSwitchCase="'Guest'" src="/dashboard/blueuser.png" class="me-1 role" />
+                  <img *ngSwitchDefault src="/dashboard/defaulticon.png" class="me-1 role" />
+                </ng-container>
+                {{ user.role }}
+              </td>
+
               <td>
                 <span class="status-badge" [ngClass]="{
               'active': user.status === 'Active',
@@ -108,7 +127,7 @@
               <td>{{ user.joinDate }}</td>
               <td>
                 <div class="dropdown dropstart">
-                  <button class="btn three-dot-btn p-0 text-muted fs-4" type="button" data-bs-toggle="dropdown"><img
+                  <button class="btn three-dot-btn pb-1  text-muted fs-4" type="button" data-bs-toggle="dropdown"><img
                       src="/img/Dots.png" alt=""></button>
                   <ul class="dropdown-menu shadow rounded-4 border-0 p-1 custom-dropdown">
                     <li>
@@ -149,14 +168,15 @@
               </td>
 
               <!-- Application Date -->
-              <td class="text-end application-date">{{ user.joinDate }}</td>
+              <td class="text-end application-date fontfamily">{{ user.joinDate }}</td>
 
               <!-- Action -->
               <td class="text-end action-col">
                 <div class="d-flex justify-content-end gap-2">
                   <!-- Eye icon opens offcanvas in VIEW mode -->
-                  <img src="/img/eyeicon.png" alt="View" width="24" height="24" style="cursor:pointer;"
-                    (click)="openOffcanvas(user, 'view')" data-bs-toggle="offcanvas" data-bs-target="#hostDetails" />
+                  <img src="/img/eyeicon.png" alt="View" width="24" height="24"
+                    style="cursor:pointer; margin-right:15px;" (click)="openOffcanvas(user, 'view')"
+                    data-bs-toggle="offcanvas" data-bs-target="#hostDetails" />
                 </div>
               </td>
             </tr>
@@ -181,12 +201,14 @@
     (hidden.bs.offcanvas)="isMealDetailsView = false">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title d-flex align-items-center" id="hostDetailsLabel">
-        <ng-container *ngIf="isMealDetailsView">
-          <img src="/meal/backbtn.png" alt="Back" class="back-btn me-2" (click)="closeMealDetails()" />
+        <!-- Show back button only in Rejection -->
+        <ng-container *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'rejection'">
+          <img src="/meal/backbtn.png" alt="Back" class="back-btn me-2" (click)="setAppReviewSubTab('overview')" />
         </ng-container>
 
         {{ getOffcanvasTitle() }}
       </h5>
+
 
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
         (click)="allClosed()"></button>
@@ -266,12 +288,20 @@
           <div class="detail-row user-type">
             <span class="label">User type</span>
             <span class="value">
-              <span class="host-badge active off-active" [ngClass]="{ 'edit-mode': mode === 'edit' }">
+              <!-- Show Host -->
+              <span *ngIf="selectedUser?.role === 'Host'" class="host-badge">
                 <img src="/img/food.png" alt="" style="margin-right:0.5rem; width:18px;">
                 Host
               </span>
+
+              <!-- Show Guest -->
+              <span *ngIf="selectedUser?.role === 'Guest'" class="guest-badge">
+                <img src="/dashboard/blueuser.png" alt="" style="margin-bottom: 4px; width:11px;">
+                Guest
+              </span>
             </span>
           </div>
+
 
           <!-- First Name -->
           <div class="detail-row">
@@ -372,11 +402,10 @@
           </div>
         </div>
 
-       <div *ngIf="mode === 'edit' && (isFirstNameEditing || isLastNameEditing)" 
-     class="review-actions mt-3">
-  <button class="reject-btn" (click)="discardChanges()">Discard changes</button>
-  <button class="save-approve-btn" (click)="saveUserDetails()">Save changes</button>
-</div>
+        <div *ngIf="mode === 'edit' && (isFirstNameEditing || isLastNameEditing)" class="review-actions mt-3">
+          <button class="reject-btn" (click)="discardChanges()">Discard changes</button>
+          <button class="save-approve-btn" (click)="saveUserDetails()">Save changes</button>
+        </div>
 
 
 
@@ -420,11 +449,11 @@
       <div *ngIf="isMealDetailsView" class="container">
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <div class="card meal-card" style="">
-              <div class="card-header bg-dark text-white mealhead" style="">
+            <div class="card meal-card">
+              <div class="card-header bg-dark text-white mealhead">
                 <h6 class="mb-0">John Doe</h6>
               </div>
-              <div class="card-body" style="">
+              <div class="card-body">
                 <img src="/meal/meal2.png" class="img-fluid mealfull" alt="Sample Image">
               </div>
             </div>
@@ -466,115 +495,215 @@
 
       <!-- ✅ Application Review  -->
 
-    <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'overview'"
-     class="app-review-overview-body">
+      <!-- ================= OVERVIEW ================= -->
+      <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'overview'"
+        class="app-review-overview-body">
 
-  <div class="user-image">
-    <img class="mt-3" src="/img/userimg.png" alt="User Image" style="width: 128px; height: 128px;" >
-  </div>
+        <div class="user-image">
+          <img class="mt-3" src="/img/userimg.png" alt="User Image" style="width: 128px; height: 128px;">
+        </div>
 
-  <div class="user-details">
-    <div class="detail-row">
-      <span class="label">First name</span>
-      <span class="value">{{ selectedUser?.firstName }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="label">Last name</span>
-      <span class="value">{{ selectedUser?.lastName }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="label">Gender</span>
-      <span class="value">{{ selectedUser?.gender }}</span>
-    </div>
-    <div class="detail-row">
-      <span class="label">Lorem</span>
-      <span class="value">Lorem Ipsum</span>
-    </div>
-    <div class="detail-row">
-      <span class="label">Lorem</span>
-      <span class="value">Lorem Ipsum</span>
-    </div>
-    <div class="detail-row">
-      <span class="label">Lorem</span>
-      <span class="value">Lorem Ipsum</span>
-    </div>
-  </div>
+        <div class="user-details">
+          <div class="detail-row">
+            <span class="label">First name</span>
+            <span class="value">{{ selectedUser?.firstName }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Last name</span>
+            <span class="value">{{ selectedUser?.lastName }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Gender</span>
+            <span class="value">{{ selectedUser?.gender }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Lorem</span>
+            <span class="value">Lorem Ipsum</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Lorem</span>
+            <span class="value">Lorem Ipsum</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Lorem</span>
+            <span class="value">Lorem Ipsum</span>
+          </div>
+        </div>
 
-  <!-- Buttons -->
-  <div class="review-actions">
-    <button class="reject-btn">Reject application</button>
-    <button class="approve-btn">Approve application</button>
-  </div>
-</div>
-
-
-
-      <!-- ======================= -->
-      <!-- ✅ Application Review → Documents -->
-      <!-- ======================= -->
-      <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'documents'" class="documents-body">
-      <div class="documents-body">
-    <!-- Aadhar Card -->
-    <div class="doc-card" *ngIf="currentDoc === 1">
-      <div class="doc-header"></div>
-      <div class="doc-preview">
-        <img src="/img/Adhar.png" alt="Aadhar Front" />
-        <img src="/img/BackAdhar.png" alt="Aadhar Back" />
-      </div>
-      <div class="doc-footer">
-        <span class="doc-index">Govt. ID&nbsp;&nbsp;1/2</span>
-        <div class="nav-buttons">
-  <div class="icon-btn" 
-       (click)="prevDoc()" 
-       [class.disabled]="currentDoc === 1">
-    <img src="/sidebar/Preicon.png" alt="Previous">
-  </div>
-  <div class="icon-btn" (click)="nextDoc()">
-    <img src="/sidebar/Next Icon.png" alt="Next">
-  </div>
-</div>
-
-      </div>
-    </div>
-
-    <!-- PAN Card -->
-    <div class="doc-card" *ngIf="currentDoc === 2">
-      <div class="doc-header"></div>
-      <div class="doc-preview">
-        <img src="/img/Adhar.png" alt="PAN Front" />
-        <img src="/img/BackAdhar.png" alt="PAN Back" />
-      </div>
-      <div class="doc-footer">
-        <span class="doc-index">Govt. ID&nbsp;&nbsp;2/2</span>
-        <div class="">
-       <div class="nav-buttons">
-  <div class="icon-btn" (click)="prevDoc()">
-    <img src="/sidebar/Preicon.png" alt="Previous">
-  </div>
-  <div class="icon-btn" 
-       (click)="nextDoc()" 
-       [class.disabled]="currentDoc === 2">
-    <img src="/sidebar/Next Icon.png" alt="Next">
-  </div>
-</div>
-
+        <!-- Buttons -->
+        <div class="review-actions">
+          <button class="reject-btn" (click)="setAppReviewSubTab('rejection')">Reject application</button>
+          <button class="approve-btn">Approve application</button>
         </div>
       </div>
+
+
+      <!-- ================= DOCUMENTS ================= -->
+      <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'documents'" class="documents-body">
+
+        <!-- Aadhar Card -->
+        <div class="doc-card" *ngIf="currentDoc === 1">
+          <div class="doc-header"></div>
+          <div class="doc-preview">
+            <img src="/img/Adhar.png" alt="Aadhar Front" />
+            <img src="/img/BackAdhar.png" alt="Aadhar Back" />
+          </div>
+          <div class="doc-footer">
+            <span class="doc-index">Govt. ID&nbsp;&nbsp;1/2</span>
+            <div class="nav-buttons">
+              <div class="icon-btn" (click)="prevDoc()" [class.disabled]="currentDoc === 1">
+                <img src="/sidebar/Preicon.png" alt="Previous">
+              </div>
+              <div class="icon-btn" (click)="nextDoc()">
+                <img src="/sidebar/Next Icon.png" alt="Next">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAN Card -->
+        <div class="doc-card" *ngIf="currentDoc === 2">
+          <div class="doc-header"></div>
+          <div class="doc-preview">
+            <img src="/img/Adhar.png" alt="PAN Front" />
+            <img src="/img/BackAdhar.png" alt="PAN Back" />
+          </div>
+          <div class="doc-footer">
+            <span class="doc-index">FSSAI License&nbsp;&nbsp;2/2</span>
+            <div class="nav-buttons">
+              <div class="icon-btn" (click)="prevDoc()">
+                <img src="/sidebar/Preicon.png" alt="Previous">
+              </div>
+              <div class="icon-btn" (click)="nextDoc()" [class.disabled]="currentDoc === 2">
+                <img src="/sidebar/Next Icon.png" alt="Next">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Approve / Reject buttons -->
+        <div class="review-actions mt-3">
+          <button class="reject-btn" (click)="setAppReviewSubTab('rejection')">Reject application</button>
+          <button class="approve-btn">Approve application</button>
+        </div>
+      </div>
+
+
+      <!-- ================= REJECTION ================= -->
+      <div *ngIf="offcanvasTab === 'applicationReview' && appReviewSubTab === 'rejection'" class="rejection-body p-3">
+
+        <!-- Header -->
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div class="d-flex align-items-center">
+            <button class="btn btn-link p-0 me-2" (click)="setAppReviewSubTab('overview')">
+              <i class="bi bi-arrow-left"></i>
+            </button>
+          </div>
+          <button class="btn btn-link p-0" (click)="setAppReviewSubTab('overview')">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <!-- Subheading -->
+        <p class="fw-medium mb-3">Select issue for application rejection :</p>
+
+        <!-- Section 1 -->
+        <div class="mb-3">
+          <h6 class="fw-semibold">1. Identity & Document Issues :</h6>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="expiredDoc">
+            <label class="form-check-label" for="expiredDoc">
+              National ID/Passport/License is expired
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="blurryDocs">
+            <label class="form-check-label" for="blurryDocs">
+              Uploaded documents are blurry or unreadable
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="mismatch">
+            <label class="form-check-label" for="mismatch">
+              Mismatch between profile details and document (e.g. name, photo, country)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="invalidType">
+            <label class="form-check-label" for="invalidType">
+              Document is not an accepted type (e.g. not a government-issued ID)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="tampering">
+            <label class="form-check-label" for="tampering">
+              Forgery or suspected tampering of document
+            </label>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="mb-3">
+          <h6 class="fw-semibold">2. Incomplete or Invalid Application Information :</h6>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="badPhoto">
+            <label class="form-check-label" for="badPhoto">
+              Profile photo does not meet standards (e.g. not clear, headshot, professional)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="invalidContact">
+            <label class="form-check-label" for="invalidContact">
+              Provided email or phone number is invalid or unreachable
+            </label>
+          </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="mb-3">
+          <h6 class="fw-semibold">3. Policy Violations or Platform Integrity Concerns</h6>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="duplicateAccount">
+            <label class="form-check-label" for="duplicateAccount">
+              User has a duplicate account
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="termsViolation">
+            <label class="form-check-label" for="termsViolation">
+              Terms of use violation discovered during the review
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="refusal">
+            <label class="form-check-label" for="refusal">
+              Refusal to comply with platform's background check process
+            </label>
+          </div>
+        </div>
+
+        <!-- Reason textarea -->
+        <div class="mb-4">
+          <label for="rejectionReason" class="fw-semibold">Rejection reason (optional)</label>
+          <textarea id="rejectionReason" class="form-control mt-1" rows="3" maxlength="300"
+            placeholder="Enter reason for application rejection..."></textarea>
+          <small class="text-muted d-block text-end mt-1">
+            <span id="charCount">0</span>/300
+          </small>
+        </div>
+
+        <!-- Footer Button -->
+        <div class="d-grid">
+          <button class="btn btn-lg fw-semibold" style="background-color: #F04438; color: #fff; border: none;">
+            Reject this application
+          </button>
+        </div>
+
+      </div>
+
+
+
+
+
+
     </div>
-  </div>
-
-  <!-- ✅ Reuse Approve/Reject buttons -->
-  <div class="review-actions mt-3">
-    <button class="reject-btn">Reject application</button>
-    <button class="approve-btn">Approve application</button>
-  </div>
-
-
-
-
-    </div>
-
-
-
-
-  </div>

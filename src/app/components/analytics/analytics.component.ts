@@ -53,6 +53,9 @@ export class AnalyticsComponent implements AfterViewInit {
   // For offcanvas tabs
   offcanvasTab: string = 'overview';   // 👈 new property
     appReviewSubTab: 'overview' | 'documents' | 'rejection' = 'overview';
+    isRejectionView: boolean = false;  
+    hostCount: number = 0;
+guestCount: number = 0;
  
     
 
@@ -188,7 +191,12 @@ export class AnalyticsComponent implements AfterViewInit {
   }
   ngOninit() {
     this.allClosed();
+      this.calculateCounts();
   }
+  calculateCounts(): void {
+  this.hostCount = this.users.filter(u => u.role === 'Host').length;
+  this.guestCount = this.users.filter(u => u.role === 'Guest').length;
+}
   
 setAppReviewSubTab(tab: 'overview' | 'documents' | 'rejection') {
   this.appReviewSubTab = tab;
@@ -226,6 +234,7 @@ closeMealDetails() {
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
+     this.calculateCounts(); 
   }
 
   applyFilter(filter: string) {
@@ -288,15 +297,18 @@ closeMealDetails() {
     alert(`Viewing ${doc.name} (${doc.type})`);
   }
   
-  getOffcanvasTitle(): string {
+ getOffcanvasTitle(): string {
   if (this.offcanvasTab === 'overview') return 'User Overview';
+
   if (this.offcanvasTab === 'applicationReview') {
-    return this.appReviewSubTab === 'overview'
-      ? 'Application Overview'
-      : 'Documents Verification';
+    if (this.appReviewSubTab === 'overview') return 'Application Overview';
+    if (this.appReviewSubTab === 'documents') return 'Documents Verification';
+    if (this.appReviewSubTab === 'rejection') return 'Application Rejection'; // 🔥 Added
   }
+
   return 'Details';
 }
+
 
 getOffcanvasBodyClass(): string {
   if (this.offcanvasTab === 'overview') return 'overview-body';
@@ -318,5 +330,11 @@ getOffcanvasBodyClass(): string {
       this.currentDoc--;
     }
   }
+openRejectionView() {
+  this.isRejectionView = true;
+}
 
+backToOverview() {
+  this.isRejectionView = false;
+}
 }

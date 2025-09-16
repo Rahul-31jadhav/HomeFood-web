@@ -1,0 +1,184 @@
+
+
+<div class="container-fluid">
+
+  <body class="backgrountab">
+
+    <div class="custom-tabs ">
+      <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Overview' }" (click)="setActiveTab('Overview')">
+        Overview
+      </button>
+
+      <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Open Ticket' }"
+        (click)="setActiveTab('Open Ticket')">
+        Open Ticket
+      </button>
+
+      <button class="custom-tab" [ngClass]="{ 'active': activeTab === 'Closed Ticket' }"
+        (click)="setActiveTab('Closed Ticket')">
+        Closed Ticket
+      </button>
+    </div>
+  </body>
+
+
+  <div *ngIf="activeTab === 'Overview'" class="cards-wrapper d-flex flex-wrap gap-3">
+    <div class="card container-card">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img src="/support/ticketcircle.png" alt="" class="me-2" width="20" height="20">
+          <p class="card-text mb-0 fontfamily">Total Tickets</p>
+        </div>
+        <span class="fw-bold subfont">109</span>
+      </div>
+    </div>
+
+    <div class="card container-card">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img src="/support/ticketcircle.png" alt="" class="me-2" width="20" height="20">
+          <p class="card-text mb-0 fontfamily">Open Tickets</p>
+        </div>
+        <span class="fw-bold subfont">45</span>
+      </div>
+    </div>
+
+    <div class="card container-card">
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img src="/support/ticketcircle.png" alt="" class="me-2" width="20" height="20">
+          <p class="card-text mb-0 fontfamily">Closed Tickets</p>
+        </div>
+        <span class="fw-bold subfont">64</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cust-tbl" *ngIf="activeTab === 'Open Ticket' || activeTab === 'Closed Ticket'">
+    <div class="card-header d-flex justify-content-between align-items-center bg-white">
+      <h5 class="mb-0 ticket-heading">{{ activeTab === 'Open Ticket' ? 'Open Tickets' : 'Closed Tickets' }}</h5>
+
+      <div class="d-flex gap-2 align-items-center">
+        <!-- Input with icon -->
+        <div class="input-group input-group-sm" style="width: 300px;">
+          <span class="input-group-text bg-white border-end-0">
+            <img src="/img/searchicon.png" alt="Search" width="16" height="16">
+          </span>
+          <input type="text" class="form-control border-start-0 fontfamily"
+            placeholder="Search by name or email id or location...">
+        </div>
+
+        <!-- Select dropdown -->
+        <select class="form-select form-select-sm fontfamily" style="width: 150px; color: #000000; ">
+          <option>This Month</option>
+          <option>Last Month</option>
+          <option>Last 3 Months</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="card-body p-0">
+      <table class="table mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 120px;">Ticket ID</th>
+            <th>Title</th>
+            <th style="width: 280px;">User</th>
+            <th style="width: 120px;">Role</th>
+            <th style="width: 100px;" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of getTickets()">
+            <td><span class="badge  text-dark titl">#{{ ticket.id }}</span></td>
+            <td class="fontfamily" style="font-weight: 400; color: #000000;">{{ ticket.title }}</td>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <img [src]="ticket.user.img" class="rounded-circle" width="40" height="40">
+                <div>
+                  <div class="fw-semibold fontfamily" style="color: #000000;">{{ ticket.user.name }}</div>
+                  <small class="text-muted"
+                    style="font-size: 12px; font-weight: 400; color: #6D6D6D; font-family:'Segoe UI';">{{
+                    ticket.user.email }}</small>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="role-badge" [ngClass]="ticket.user.role === 'Host' ? 'role-host' : 'role-guest'">
+
+                <!-- Show image depending on role -->
+                <img *ngIf="ticket.user.role === 'Host'" src="/img/food.png" alt="Host" width="14" class="role-icon">
+                <img *ngIf="ticket.user.role === 'Guest'" src="/dashboard/blueuser.png" width="11" alt="Guest"
+                  class="role-icon">
+
+                {{ ticket.user.role }}
+              </span>
+
+
+            </td>
+            <td class="text-center">
+              <img src="/support/browneye.png" width="22" height="22" alt="eye" class="me-2" style="cursor: pointer;"
+                data-bs-toggle="offcanvas" data-bs-target="#ticketOffcanvas">
+
+              <div class="dropdown dropup d-inline">
+                <img src="/img/Dots.png" width="22" height="22" alt="dot" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false" style="cursor: pointer;">
+                <ul class="dropdown-menu dropdown-menu-end custom-dropdown">
+                  <li><a class="dropdown-item" href="#">Close ticket</a></li>
+                  <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                </ul>
+              </div>
+            </td>
+
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end offcanvas-ticket" tabindex="-1" id="ticketOffcanvas">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Ticket Details</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column">
+     <div class="d-tail">
+  <span class="fontfamily d-flex align-items-center" style="font-weight: 700; gap: 6px;">
+    <img src="/support/ticketcircle.png" width="15" height="15" alt="">
+    Detail
+  </span>
+</div>
+
+
+      <!-- Ticket Header -->
+      <div class="ticket-card d-flex align-items-center justify-content-between p-3 mb-2">
+  <!-- Left section: image + name/email -->
+  <div class="d-flex align-items-center">
+    <img src="/img/ProfileimgIcon.png" alt="User" class="rounded-circle me-3" width="40" height="40">
+    <div class="d-flex flex-column">
+      <span class="fontfamily">Tatiana Vaccaro</span>
+      <small class="text-muted" style="font-size: 12px; font-family: 'Segoe UI'; font-weight: 400; color: #6D6D6D;">tatiana.vaccaro11yahoo.com</small>
+    </div>
+  </div>
+
+  <!-- Right section: Host badge -->
+  <span class="ticket-badge role-host d-flex align-items-center">
+    <img src="/img/food.png" alt="Host" width="16" height="16" class="me-1">
+    Host
+  </span>
+</div>
+
+
+      <!-- Ticket ID -->
+      
+
+      <!-- Footer -->
+    
+
+    </div>
+  </div>
+</div>

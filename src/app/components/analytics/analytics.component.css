@@ -26,9 +26,9 @@
     .custom-badge {
       background: #ff5a1f;
       color:#F6F6F6;
-      border-radius: 12px;
+      border-radius: 6px;
       font-size: 12 px;
-      padding: 2px 8px;
+      padding: 1px 13px;
       margin-left: 6px;
     }
     .backgrountab{
@@ -40,125 +40,23 @@
 
 
 
-/* .campaign-img {
-      width: 30px;
-      height: 30px;
-      border-radius: 20px;
-      object-fit: cover;
-      margin-right: 10px;
-    }
-    .fontfamily{
-      font-family: 'Segoe UI';
-    }
-
-    .campaign-title {
-      font-family: Albert Sans;
-font-weight: 400;
-font-style: Regular;
-font-size: 14px;
-line-height: 20px;
-letter-spacing: 0%;
-text-decoration-style: solid;
-text-decoration-thickness: 0%;
-text-decoration-skip-ink: auto;
-
-    }
-
-    .campaign-subtext {
-      color: #888;
-      font-family: Albert Sans;
-font-weight: 400;
-font-style: Regular;
-font-size: 12px;
-line-height: 16px;
-letter-spacing: 0%;
-
-    }
-
-    .status-pill {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 20px;
-      background-color: #e6f4ea;
-      color: #34a853;
-      font-weight: 500;
-    }
-
-    .owner-img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 8px;
-    }
-
-    .owner-name {
-      font-weight: 500;
-      text-decoration: none;
-    }
-
-    .owner-name:hover {
-      text-decoration: underline;
-    }
-   
-  .main-table{
-        border-radius: 15px;
-        margin-top: 1.5rem;
-        margin: 1.5rem;
-    }
-
-    .btn-create {
-      background-color: #ffa726;
-      color: white;
-      border-radius: 15px;
-       box-shadow: 0 0 5px rgba(249, 168, 37, 0.8);
-     margin-right: 2rem;
-    }
-
-.navT {
-  border-bottom: 1px solid #ddd;
-  
+/* tablestyle */
+/* Heading alignment */
+/* .th-left {
+  text-align: left;
 }
-
-.navT .nav-link {
-  text-decoration: none !important;   
-  color: #888;                        
-  border: none;
-  font-family: Albert Sans;
-font-weight: 600;
-font-size: 12.5px;
-line-height: 20px;
-letter-spacing: 0%;
-
-}
-
-.navT .nav-link.active {
-  color: #000;                      
-  border-bottom: 1px solid #FFA500;  
-  font-weight: 600;
-}
-.campaign-heading {
-  font-family: 'Albert Sans', sans-serif;
-  font-weight: 600;              
-  font-style: normal;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0;
-  padding-bottom: 18px;
-}
-
-
-.table-header-row th {
-  background-color: #FFF0F0 !important;
-    padding-bottom: 4px;
-font-weight: 600;
-font-style: Medium;
-font-size: 14px;
-line-height: 24px;
-letter-spacing: 0%;
-  font-family: 'Albert Sans', sans-serif;
-  
+.th-right {
+  text-align: right;
 } */
+
+/* Row alignment for Role, Status, Join Date, Action */
+/* .cell-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+} */
+
+
 .custom-scroll-table {
   max-height: 660px;
   overflow-y: auto;
@@ -171,11 +69,13 @@ letter-spacing: 0%;
   z-index: 1;
 }
 
+
 .custom-head th {
   font-weight: 600;
   font-size: 14px;
   color: #333;
   background: #FFF0F0;
+   /* text-indent: 2rem; */
 }
 
 .Active {
@@ -195,15 +95,10 @@ letter-spacing: 0%;
   gap: 10px;
 }
 
-.three-dot-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
 
 .search-wrapper {
   border: 1px solid #ddd;
-  padding: 2px 28px;
+  padding: 6px 28px;
   background: #fff;
   border-radius: 8px;
 
@@ -228,7 +123,7 @@ letter-spacing: 0%;
 }
 .fontfamily{
       font-family: 'Segoe UI';
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 500;
 
     }
@@ -248,9 +143,10 @@ letter-spacing: 0%;
   display: inline-flex;
   align-items: center;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 12px;
   border-radius: 50px;
   padding: 4px 12px;
+  margin-right: -3px;
 }
 
 .status-badge .dot {
@@ -558,8 +454,8 @@ color: #FF6B6B;
   text-decoration: none;
 }
 .meal-card {
-  width: 280px;
-  height: 240px;
+  width: 20vw;
+  /* height: 240px; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -780,8 +676,9 @@ color: #FF6B6B;
 
 
 .documents-body {
-  padding: 15px;
-  height: 10vh;
+  padding: 1rem;
+  min-height: 10vh;
+  max-width: 100%;
 }
 
 .doc-card {
@@ -791,22 +688,25 @@ color: #FF6B6B;
   padding: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden; 
+  overflow: hidden;
+  max-width: 100%;
+  margin-top: -1rem;
 }
 
 .doc-header {
-  background-color: #1e3a3a; 
-  height: 35px; 
-  border-top-left-radius: 9px; 
+  background-color: #1e3a3a;
+  height: 35px;
+  border-top-left-radius: 9px;
   border-top-right-radius: 9px;
   margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .doc-title {
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
   font-weight: 600;
   margin-bottom: 5px;
-  padding: 15px; 
+  padding: 15px;
 }
 
 .doc-preview {
@@ -814,16 +714,18 @@ color: #FF6B6B;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 1rem;
   background: #fdeff0;
-  padding: 15px;
+  padding: 1rem;
   border-radius: 8px;
-  margin: 15px; 
+  margin: 1rem;
+  overflow: hidden;
 }
 
 .doc-preview img {
-  width: 37.5vh;
-  height: 22.7vh;
+  width: min(37.5vh, 90vw, 400px);
+  height: min(22.7vh, 55vw, 250px);
+  max-width: 100%;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -835,17 +737,21 @@ color: #FF6B6B;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px; 
+  padding: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .doc-index {
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   color: #333;
+  white-space: nowrap;
 }
 
 .nav-buttons {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .nav-btn {
@@ -854,7 +760,8 @@ color: #FF6B6B;
   padding: 4px 10px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
+  min-width: 32px;
 }
 
 .nav-btn:hover {
@@ -866,18 +773,141 @@ color: #FF6B6B;
   color: #ccc;
   cursor: not-allowed;
 }
+
 .icon-btn {
   display: inline-block;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .icon-btn.disabled {
   opacity: 0.5;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 .icon-btn img {
   display: block;
-  width: 40px; 
-  height: 40px;
+  width: clamp(32px, 4vw, 40px);
+  height: clamp(32px, 4vw, 40px);
+}
+
+.review-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.reject-btn, .approve-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #c82333;
+  cursor: pointer;
+  font-size: clamp(14px, 2vw, 16px);
+  font-weight: 500;
+  min-width: 120px;
+}
+
+
+.approve-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+
+.approve-btn:hover {
+  background-color: #218838;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1400px) {
+  .doc-preview img {
+    width: min(35vh, 85vw, 350px);
+    height: min(20vh, 50vw, 220px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .documents-body {
+    padding: 0.75rem;
+  }
+  
+  .doc-preview {
+    gap: 0.75rem;
+    padding: 0.75rem;
+    margin: 0.75rem;
+  }
+  
+  .doc-preview img {
+    width: min(32vh, 80vw, 300px);
+    height: min(18vh, 45vw, 180px);
+  }
+}
+
+@media (max-width: 992px) {
+  .doc-footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .doc-preview img {
+    width: min(30vh, 75vw, 280px);
+    height: min(16vh, 40vw, 160px);
+  }
+}
+
+@media (max-width: 768px) {
+  .documents-body {
+    padding: 0.5rem;
+  }
+  
+  .doc-preview {
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+  
+  .doc-preview img {
+    width: min(28vh, 90vw, 260px);
+    height: min(15vh, 50vw, 150px);
+  }
+  
+  .review-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .reject-btn, .approve-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Zoom level adjustments */
+@media (min-resolution: 1.25dppx) {
+  .doc-preview img {
+    width: min(30vh, 70vw, 320px);
+    height: min(18vh, 42vw, 200px);
+  }
+}
+
+@media (min-resolution: 1.5dppx) {
+  .doc-preview img {
+    width: min(25vh, 60vw, 280px);
+    height: min(15vh, 36vw, 170px);
+  }
+}
+.rejection-body {
+  background: #fff;
+  max-width: 720px;
+  border-radius: 8px;
+}
+
+.form-check {
+  margin-bottom: 0.5rem;
+}
+
+textarea.form-control {
+  resize: none;
 }

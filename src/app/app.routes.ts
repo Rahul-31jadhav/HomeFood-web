@@ -3,7 +3,7 @@ import { AuthComponent } from './auth/auth/auth.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
-import { ProjectsComponent } from './components/projects/projects.component';
+import { ProjectsComponent } from './components/support/projects.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { GenericTableComponent } from './components/generic-table/generic-table.component';
 
@@ -19,7 +19,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
         { path: 'analytics', component: AnalyticsComponent },
       { path: 'projects', component: ProjectsComponent },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'support', component: SettingsComponent },
       {path:'table',component:GenericTableComponent},
     ]
   },
