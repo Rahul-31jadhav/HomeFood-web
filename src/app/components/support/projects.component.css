@@ -203,5 +203,28 @@
   font-weight: 600;
 }
 
+.tickets-card {
+  border: 1px solid #E7E7E7;
+  border-radius: 12px;
+  width: 100%;
+  margin-top: 0.2rem;
+  display: flex;
+  flex-wrap: wrap; /* allows wrapping on small screens */
+}
 
+.lined {
+  border-left: 2px solid #E7E7E7;
+  height: 2.4rem;
+}
 
+.issue {
+  border-radius: 2rem;
+  background-color: #F0F8FF;
+  padding: 8px 12px;
+  flex-grow: 1; /* expand to fill space */
+  min-width: 200px; /* ensures readability on small screens */
+}
+
+.innertext {
+  margin: 0; /* reset margin */
+}
