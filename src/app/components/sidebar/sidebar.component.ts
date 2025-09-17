@@ -14,20 +14,20 @@ export class SidebarComponent {
   constructor(private router: Router) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
+      .subscribe((event: NavigationEnd) => {
         const currentUrl = event.urlAfterRedirects;
 
         // Set heading based on route path
         if (currentUrl.includes('/dashboard')) {
           this.pageTitle = 'Dashboard';
-        } else if (currentUrl.includes('/home')) {
-          this.pageTitle = 'Home';
         } else if (currentUrl.includes('/analytics')) {
           this.pageTitle = 'User Management';
         } else if (currentUrl.includes('/projects')) {
-          this.pageTitle = 'Projects';
-        } else if (currentUrl.includes('/settings')) {
-          this.pageTitle = 'Settings';
+          this.pageTitle = 'support';
+        } else if (currentUrl.includes('/support')) {
+          this.pageTitle = 'Booking Management';
+        } else if (currentUrl.includes('/table')) {
+          this.pageTitle = 'Table';
         } else {
           this.pageTitle = '';
         }
