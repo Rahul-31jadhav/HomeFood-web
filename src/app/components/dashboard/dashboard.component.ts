@@ -86,7 +86,7 @@ export class DashboardComponent implements AfterViewInit {
       data: {
         labels: ['Takeaway', 'Delivery', 'Dine-in'],
         datasets: [{
-          data: [39.13, 56.6, 49.75], // static values
+          data: [39.13, 56.6, 49.75],   
           backgroundColor: ['#2ec7f4', '#9a7cf6', '#ff8a8a'],
           borderWidth: 0
         }]
@@ -94,13 +94,13 @@ export class DashboardComponent implements AfterViewInit {
       options: {
         responsive: true,
         plugins: {
-          legend: { display: false }, // we use custom legend
+          legend: { display: false },
           datalabels: {
             formatter: (value: any, ctx: any) => {
               const label = ctx.chart.data.labels[ctx.dataIndex];
               if (label === 'Takeaway') return 'Takeaway\n39.13  26.90%';
               if (label === 'Delivery') return 'Delivery\n56.6  38.91%';
-              if (label === 'Dine-in') return 'Dine-in\n49.75  34.20%';
+              if (label === 'Dine-in') return 'Dine-in\n49.75  34.20%'; 
               return '';
             },
             color: (ctx: any) => {
