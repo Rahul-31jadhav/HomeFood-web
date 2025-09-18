@@ -1,33 +1,25 @@
 <body class="backgrountab">
- <div class="custom-tabs container-fluid ">
-  <button class="custom-tab"
-          [class.active]="activeTab === 'All Booking'"
-          (click)="setActiveTab('All Booking')">
-    All Booking
-    <span class="custom-badge">{{ totalCount }}</span>
-  </button>
+  <div class="custom-tabs container-fluid ">
+    <button class="custom-tab" [class.active]="activeTab === 'All Booking'" (click)="setActiveTab('All Booking')">
+      All Booking
+      <span class="custom-badge">{{ totalCount }}</span>
+    </button>
 
-  <button class="custom-tab"
-          [class.active]="activeTab === 'Upcoming'"
-          (click)="setActiveTab('Upcoming')">
-    Upcoming
-    <span class="custom-badge">{{ upcomingCount }}</span>
-  </button>
+    <button class="custom-tab" [class.active]="activeTab === 'Upcoming'" (click)="setActiveTab('Upcoming')">
+      Upcoming
+      <span class="custom-badge">{{ upcomingCount }}</span>
+    </button>
 
-  <button class="custom-tab"
-          [class.active]="activeTab === 'Completed'"
-          (click)="setActiveTab('Completed')">
-    Completed
-    <span class="custom-badge">{{ completedCount }}</span>
-  </button>
+    <button class="custom-tab" [class.active]="activeTab === 'Completed'" (click)="setActiveTab('Completed')">
+      Completed
+      <span class="custom-badge">{{ completedCount }}</span>
+    </button>
 
-  <button class="custom-tab"
-          [class.active]="activeTab === 'Canceled'"
-          (click)="setActiveTab('Canceled')">
-    Cancel
-    <span class="custom-badge">{{ canceledCount }}</span>
-  </button>
-</div>
+    <button class="custom-tab" [class.active]="activeTab === 'Canceled'" (click)="setActiveTab('Canceled')">
+      Cancel
+      <span class="custom-badge">{{ canceledCount }}</span>
+    </button>
+  </div>
 
 </body>
 
@@ -37,7 +29,8 @@
     <h5 class="mb-0" style="font-size: 18px; font-family: 'Segoe UI'; font-weight: 600;">All Bookings</h5>
 
     <div class="d-flex align-items-center gap-2">
-      <input type="text" class="form-control form-control-sm search-input" placeholder="Search by meal name, Host name ..">
+      <input type="text" class="form-control form-control-sm search-input"
+        placeholder="Search by meal name, Host name ..">
       <select class="form-select form-select-sm filter-select">
         <option>All</option>
         <option>Upcoming</option>
@@ -63,16 +56,12 @@
 
       <tbody>
         <!-- ✅ Loop through filtered bookings -->
-        <tr *ngFor="let booking of filteredBookings" 
-            (click)="onRowClick(booking)" 
-            class="clickable-row">
+        <tr *ngFor="let booking of filteredBookings" (click)="onRowClick(booking)" class="clickable-row">
           <td class="cust-style">{{ booking.meal }}</td>
           <td class="cust-style" style="color: #6E6E6E;">{{ booking.host }}</td>
           <td>
             <div class="d-flex align-items-center">
-              <img *ngFor="let customer of booking.customers" 
-                   [src]="customer" 
-                   class="rounded-circle customer-avatar">
+              <img *ngFor="let customer of booking.customers" [src]="customer" class="rounded-circle customer-avatar">
             </div>
           </td>
           <td>{{ booking.guests }}</td>
@@ -81,8 +70,7 @@
             <div class="sub-text">{{ booking.time }}</div>
           </td>
           <td>
-            <span class="badge" 
-                  [ngClass]="{
+            <span class="badge" [ngClass]="{
                     'badge-upcoming': booking.status === 'Upcoming',
                     'badge-completed': booking.status === 'Completed',
                     'badge-canceled': booking.status === 'Canceled'
@@ -91,11 +79,132 @@
             </span>
           </td>
           <td class="text-center">
-            <img src="/img/eye-icon.png" width="20" height="20" alt="view">
+            <img src="/support/browneye.png" width="20" height="20" alt="view" role="button" data-bs-toggle="offcanvas"
+              data-bs-target="#bookingOffcanvas">
           </td>
+
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 
+<div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="bookingOffcanvas">
+  <!-- Header -->
+  <div class="offcanvas-header">
+    <h6 class="mb-0 off-style d-flex align-items-center" style="font-size: 24px;">
+      Booking Details
+      <span class="badge-upcoming d-inline-flex align-items-center ms-3" style="font-size: 9px;">
+        <img src="/support/clock.svg" alt="clock" class="me-2" width="10" height="10">
+        Upcoming
+      </span>
+    </h6>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <!-- Scrollable Body -->
+  <div class="offcanvas-body">
+    <!-- Host -->
+    <div class="guest-card">
+      <div class="d-flex align-items-center">
+        <img src="https://via.placeholder.com/40" alt="host">
+        <span class="off-style">Priya Kulkarni</span>
+      </div>
+      <span class="host-badge">Host</span>
+    </div>
+
+    <!-- Guests -->
+    <p class="fw-semibold mt-3 mb-2">Guests</p>
+    <div class="guest-card">
+      <div class="d-flex align-items-center">
+        <img src="https://via.placeholder.com/40" alt="guest">
+        <span class="off-style">Ankit Mehta</span>
+      </div>
+      <span class="guest-badge">Guest</span>
+    </div>
+    <div class="guest-card">
+      <div class="d-flex align-items-center">
+        <img src="https://via.placeholder.com/40" alt="guest">
+        <span class="off-style">Rohan Gupta</span>
+      </div>
+      <span class="guest-badge">Guest</span>
+    </div>
+    <div class="guest-card">
+      <div class="d-flex align-items-center">
+        <img src="https://via.placeholder.com/40" alt="guest">
+        <span class="off-style">Sneha Reddy</span>
+      </div>
+      <span class="guest-badge">Guest</span>
+    </div>
+
+    <!-- Meal Info -->
+    <div class="info-card">
+      <div class="row">
+        <div class="col-6">
+          <p class="section-title off-inner-style mt-2">
+            <img class="me-2 mb-1" src="/support/iccalnd.svg" width="14" height="14" alt="">Meal Name
+          </p>
+          <p class="off-sub-style ms-4">Panner Butter Masala with Naan</p>
+          <p class="section-title mt-2 off-inner-style">
+            <img class="me-2" src="/support/clck.svg" width="14" height="14" alt="">Scheduled Date & Time
+          </p>
+          <p class="off-sub-style ms-4">Sept 10, 2025. Dinner</p>
+        </div>
+        <div class="col-6">
+          <p class="section-title off-inner-style">
+            <img class="me-2" src="/support/ic-guests.svg" width="14" height="14" alt="">Guests
+          </p>
+          <p class="off-sub-style ms-4">3 Guests</p>
+          <p class="section-title mt-2 off-inner-style">
+            <img class="me-2" src="/support/iccalnd.svg" width="14" height="14" alt="">Meal Type
+          </p>
+          <p class="off-sub-style ms-4">Dine-in, Take-away, Delivery</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="info-card">
+      <p class="section-title off-inner-style">Address</p>
+      <p class="off-sub-style">Building XYZ, Main Street, Kothrud, Pune</p>
+      <p class="section-title mt-2 off-inner-style">Scheduled Time</p>
+      <p class="off-sub-style">07:00 PM - 10:00 PM, Sept 10, 2025</p>
+      <p class="section-title mt-2 off-inner-style">Tourist Contact</p>
+      <p class="off-sub-style">+1234567890</p>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-box">
+      Notes: Ensure the meal is ready by 06:30 PM to avoid delay.
+    </div>
+
+    <!-- Amount Section -->
+    <div class="row g-2 mb-3">
+      <div class="col-4">
+        <div class="amount-card text-start">
+          <p class="fw-semibold mb-1 off-sub-style">Total Booking Amount</p>
+          <p class="amount-card-style mb-0">₹ 840.00</p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="amount-card text-start">
+          <p class="fw-semibold mb-1 off-sub-style">Platform Commission</p>
+          <p class="amount-card-style mb-0">₹ 756.00</p>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="amount-card text-start">
+          <p class="fw-semibold mb-1 off-sub-style">Host Earnings</p>
+          <p class="mb-0 amount-card-style">₹ 84.00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Cancel Button -->
+  <div class="offcanvas-footer">
+    <div class="cancel-btn-wrapper">
+      <button class="cancel-btn">Cancel Booking</button>
+    </div>
+  </div>
+</div>

@@ -82,7 +82,7 @@
                   <span class="text-internal">234</span> new this week
                 </p>
               </div>
-              <img src="/dashboard/shield.png" alt="Hosts Icon" class="img-fluid">
+              <img src="/Nsidebar/shield-check.svg" alt="Hosts Icon" class="img-fluid">
             </div>
           </div>
         </div>
@@ -124,85 +124,109 @@
         </div>
 
 
-        <div class="col-md-4">
-          <div class="card p-3 stat-card fontstyle">
-            <h6 style="color: #000000; font-weight: 600; font-size: 20px;">Meal type Distribution</h6>
-              <p class="text-muted mb-0 fontstyle" style="color: #6E6E6E; font-weight: 400; font-size: 18px;">Breakdown by service type</p>
-            <div class="pie-chart d-flex align-items-center justify-content-center">
-              <span class="text-muted">[Static Pie Chart Placeholder]</span>
-            </div>
-            <ul class="mt-3 small">
-              <li>Delivery: 39.91%</li>
-              <li>Dine-in: 34.20%</li>
-              <li>Takeaway: 25.89%</li>
-            </ul>
-          </div>
-        </div>
+       <div class="col-md-4">
+  <div class="card p-3 stat-card fontstyle">
+    <h6 class="mb-1" style="color: #000000; font-weight: 600; font-size: 20px;">
+      Meal type Distribution
+    </h6>
+    <p class="text-muted mb-3 fontstyle" style="color: #6E6E6E; font-weight: 400; font-size: 16px;">
+      Breakdown by service type
+    </p>
+
+    <!-- Pie Chart -->
+    <div class="pie-chart d-flex align-items-center justify-content-center">
+      <canvas id="orderTypesChart"></canvas>
+    </div>
+
+    <!-- Custom Legend -->
+    <div class="custom-legend mt-3">
+      <div class="legend-item">
+        <span class="legend-dot" style="background-color:#9a7cf6;"></span>
+        Delivery <span class="legend-value">39.91%</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background-color:#ff8a8a;"></span>
+        Dine-in <span class="legend-value">34.20%</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background-color:#2ec7f4;"></span>
+        Takeaway <span class="legend-value">26.90%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
       </div>
     </div>
 
     <!-- Recent Activities -->
-    <div class="col-lg-3">
-      <div class="activities">
-        <h6>Recent Activities</h6>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            New host application submitted<br>
-            <span>Just now</span>
-          </div>
+   <div class="col-lg-3">
+  <div class="activities">
+    <h6>Recent Activities</h6>
+
+    <div class="activities-list">
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          New host application submitted<br>
+          <span>Just now</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            KYC verified for Priya’s Kitchen<br>
-            <span>6 minutes ago</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          KYC verified for Priya’s Kitchen<br>
+          <span>6 minutes ago</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            Host blocked (Restaurant suspected)<br>
-            <span>45 minutes ago</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          Host blocked (Restaurant suspected)<br>
+          <span>45 minutes ago</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            Meal request accepted by Rahul Sharma<br>
-            <span>1 hour ago</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          Meal request accepted by Rahul Sharma<br>
+          <span>1 hour ago</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            New guest registration (Amit Verma)<br>
-            <span>Today, 08:46 AM</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          New guest registration (Amit Verma)<br>
+          <span>Today, 08:46 AM</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            Dispute raised: Late delivery complaint<br>
-            <span>Today, 10:00 AM</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          Dispute raised: Late delivery complaint<br>
+          <span>Today, 10:00 AM</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            New booking: Pithla Bhakri Thali, Pune<br>
-            <span>Today, 10:20 AM</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          New booking: Pithla Bhakri Thali, Pune<br>
+          <span>Today, 10:20 AM</span>
         </div>
-        <div class="activity-item">
-          <img src="https://via.placeholder.com/32" alt="">
-          <div>
-            Fraud alert flagged (duplicate account)<br>
-            <span>Today, 10:30 AM</span>
-          </div>
+      </div>
+      <div class="activity-item">
+        <img src="https://via.placeholder.com/32" alt="">
+        <div>
+          Fraud alert flagged (duplicate account)<br>
+          <span>Today, 10:30 AM</span>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
 
   </div>
 </div>

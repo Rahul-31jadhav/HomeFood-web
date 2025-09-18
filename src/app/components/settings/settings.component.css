@@ -1,4 +1,10 @@
-  .custom-tabs {
+ ::ng-deep .offcanvas-backdrop.show {
+    opacity: .35 !important;
+}
+
+
+
+ .custom-tabs {
     background: #F6F6F6;
     border-radius: 50px;
     padding: 5px;
@@ -79,7 +85,7 @@
 
   .badge-upcoming {
     background-color: #e7f3ff;
-    color: #0d6efd;
+    color: #0062A5;
   }
 
   .badge-completed {
@@ -124,4 +130,179 @@
 .filter-select {
   width: auto !important;   
   flex: 0 0 auto;            
+}
+.offcanvas-end {
+      width: 48%;
+  height: 100vh;
+  border-top-left-radius: 1rem;  
+  border-bottom-left-radius: 1rem; 
+  border-top-right-radius: 0;      
+  border-bottom-right-radius: 0;  
+    }
+
+    .guest-card, .info-card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 8px 16px;
+      margin-bottom: 12px;
+    }
+
+
+.info-card{
+    border-radius: 12px;
+    padding: 8px 16px;
+    margin-bottom: 12px;
+    background-color: #F6F6F6;
+}
+
+    
+
+    .guest-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .guest-card img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .section-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      margin: 0;
+    }
+
+    .amount-card {
+      border: 1px solid #BCBCBC;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .cancel-btn {
+      background: #fff5f5;
+      color: #d9534f;
+      border: 1px solid #f5c6cb;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .badge-upcoming {
+      background: #e6f0ff;
+      color: #0066ff;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    .host-badge {
+      background: #fff3cd;
+      color: #d39e00;
+      padding: 2px 10px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .guest-badge {
+      background: #eaf6ff;
+      color: #0d6efd;
+      padding: 2px 10px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .notes-box {
+      font-size: 12px;
+    background: #FFFBED;
+    border-radius: 11px;
+    padding: 2px 24px;
+    margin-bottom: 15px;
+    color: #FDA712;
+    }
+
+    .off-style {
+      font-family: 'Segoe UI';
+      font-weight: 600;
+      font-size: 14px;
+      color: #000000;
+    } 
+    .offcanvas-header {
+  display: flex;
+  align-items: center;
+  padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+  position: relative;
+}
+
+.offcanvas-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 16px;   
+  right: 16px; 
+  height: 1px;
+  background-color: #E7E7E7;
+}
+  
+.off-inner-style {
+      font-family: 'Segoe UI';
+      font-weight: 600;
+      font-size: 12px;
+      color: #6D6D6D;
+    }
+    .off-sub-style {
+      font-family: 'Segoe UI';
+      font-weight: 600;
+      font-size: 14px;
+      color: #2B2B2B;
+    }
+    .amount-card-style{
+      font-family: 'Segoe UI';
+      font-weight: 600;
+      font-size: 20px;
+      color: #17B26A;
+    }
+
+.cancel-btn-fixed {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+.cancel-btn-wrapper {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cancel-btn {
+  width: 100%;
+  background-color: #fff5f5;
+  color: #ff4d4d;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #ffeaea;
 }
