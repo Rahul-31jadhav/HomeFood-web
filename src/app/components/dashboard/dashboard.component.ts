@@ -1,8 +1,9 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { Chart } from 'chart.js/auto';
-// import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Chart, registerables } from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-// Chart.register(ChartDataLabels);
+// Chart.register(...registerables, ChartDataLabels);
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,8 @@ export class DashboardComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.loadBookingTrendsChart();
-    this.loadOrderTypesChart();
+    // this.loadOrderTypesChart();
+     this.loadOrderTypesChartFancy();
   }
 
   // 📈 Line Chart
@@ -78,42 +80,47 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   // 🥧 Pie Chart
-  loadOrderTypesChart(): void {
-    const ctx = document.getElementById('orderTypesChart') as HTMLCanvasElement;
+  loadOrderTypesChartFancy(): void {
+      const ctx = document.getElementById('orderTypesChart') as HTMLCanvasElement;
 
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['Takeaway', 'Delivery', 'Dine-in'],
-        datasets: [{
-          data: [39.13, 56.6, 49.75],   
-          backgroundColor: ['#2ec7f4', '#9a7cf6', '#ff8a8a'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          datalabels: {
-            formatter: (value: any, ctx: any) => {
-              const label = ctx.chart.data.labels[ctx.dataIndex];
-              if (label === 'Takeaway') return 'Takeaway\n39.13  26.90%';
-              if (label === 'Delivery') return 'Delivery\n56.6  38.91%';
-              if (label === 'Dine-in') return 'Dine-in\n49.75  34.20%'; 
-              return '';
-            },
-            color: (ctx: any) => {
-              const bg = ctx.dataset.backgroundColor;
-              return Array.isArray(bg) ? bg[ctx.dataIndex] : bg;
-            },
-            font: { size: 11, weight: '600' },
-            align: 'end',   // push outside
-            anchor: 'end',  // attach to slice edge
-            clamp: true
-          } as any
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Takeaway', 'Delivery', 'Dine-in'],
+          datasets: [{
+            data: [39.13, 56.6, 49.75],
+            backgroundColor: ['#2ec7f4', '#9a7cf6', '#ff8a8a'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: {
+            padding: 20  // leave space for labels outside
+          },
+          plugins: {
+            legend: { display: false },
+            datalabels: {
+              color: '#000',
+              font: { size: 12, weight: 'bold' },
+              anchor: 'end',    // place outside slice
+              align: 'end',     // outside slice
+              offset: 20,       // distance from slice
+              clamp: true,      // prevent cutting off
+              formatter: (value: number, ctx: any) => {
+                const total = ctx.chart.data.datasets[0].data.reduce((a: number, b: number) => a + b, 0);
+                const percentage = ((value / total) * 100).toFixed(1) + "%";
+                return `${ctx.chart.data.labels[ctx.dataIndex]}\n${percentage}`;
+              },
+              listeners: {
+                // optional: force lines to show
+                afterDraw: () => {}
+              }
+            } as any
+          }
         }
-      } as any
-    });
-  }
+      });
+    }
+
 }

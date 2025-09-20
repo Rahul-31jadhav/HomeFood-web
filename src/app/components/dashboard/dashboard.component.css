@@ -250,3 +250,9 @@ canvas {
     font-size: 9px !important;
   }
 }
+  .pie-chart canvas {
+    max-width: 89%;
+    max-height: 89%;
+    display: block;
+    margin: 0 auto; 
+  }
